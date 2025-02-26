@@ -3,4 +3,5 @@ from .user import User
 from .post import Post
 from .comment import Comment
 from .post_image import PostImage
+from .saveforlater import SaveForLater
 from .db import environment, SCHEMA
