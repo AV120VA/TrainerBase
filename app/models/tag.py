@@ -1,5 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from sqlalchemy.sql import func
+from sqlalchemy.orm import relationship
+from .posttag import PostTag
 
 class Tag(db.Model):
     __tablename__ = 'tags'
@@ -12,10 +14,13 @@ class Tag(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, server_default=func.now())
     updated_at = db.Column(db.DateTime, nullable=False, server_default=func.now(), onupdate=func.now())
 
+    posts = relationship('Post', secondary='post_tags', back_populates='tags')
+
     def to_dict(self):
         return {
             'id': self.id,
             'name': self.name,
             'created_at': self.created_at,
-            'updated_at': self.updated_at
+            'updated_at': self.updated_at,
+            'posts': [post.to_dict() for post in self.posts]
         }
