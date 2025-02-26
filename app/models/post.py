@@ -11,6 +11,7 @@ class Post(db.Model):
     title = db.Column(db.String(100), nullable=False)
     content = db.Column(db.Text(), nullable=True)
     likes = db.Column(db.Integer, default=0)
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, server_default=func.now())
     updated_at = db.Column(db.DateTime, nullable=False, server_default=func.now(), onupdate=func.now())
 
