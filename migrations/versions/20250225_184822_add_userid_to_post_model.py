@@ -8,6 +8,10 @@ Create Date: 2025-02-25 18:48:22.090397
 from alembic import op
 import sqlalchemy as sa
 
+import os
+environment = os.getenv("FLASK_ENV")
+SCHEMA = os.environ.get("SCHEMA")
+
 
 # revision identifiers, used by Alembic.
 revision = 'ff902055f496'
@@ -21,6 +25,9 @@ def upgrade():
     with op.batch_alter_table('posts', schema=None) as batch_op:
         batch_op.add_column(sa.Column('user_id', sa.Integer(), nullable=False))
         batch_op.create_foreign_key('fk_posts_user_id', 'users', ['user_id'], ['id'])
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE posts SET SCHEMA {SCHEMA};")
 
     # ### end Alembic commands ###
 
