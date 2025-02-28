@@ -14,7 +14,7 @@ class Tag(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, server_default=func.now())
     updated_at = db.Column(db.DateTime, nullable=False, server_default=func.now(), onupdate=func.now())
 
-    posts = relationship('Post', secondary='post_tags', back_populates='tags')
+    posts = relationship('Post', secondary=add_prefix_for_prod('post_tags'), back_populates='tags')
 
     def to_dict(self):
         return {
