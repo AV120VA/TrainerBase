@@ -63,3 +63,49 @@ def add_image(post_id):
 
     return jsonify(image.to_dict())
 
+# Edit a Post
+@post_routes.route('/<int:post_id>', methods=["PUT"])
+@login_required
+def update_post(post_id):
+    post = Post.query.get(post_id)
+
+    if post is None:
+        return jsonify({"message": "Post not found"}), 404
+
+    if post.user_id != current_user.id:
+        return jsonify({"message": "Unauthorized"}), 401
+
+    data = request.json
+
+    if not data:
+        return jsonify({"message": "Invalid data"}), 400
+
+    if 'title' in data:
+        post.title = data['title']
+
+    if 'content' in data:
+        post.content = data['content']
+
+    if 'likes' in data:
+        post.likes = data['likes']
+
+    db.session.commit()
+
+    return jsonify(post.to_dict())
+
+# Delete a Post
+@post_routes.route('/<int:post_id>', methods=["DELETE"])
+@login_required
+def delete_post(post_id):
+    post = Post.query.get(post_id)
+
+    if post is None:
+        return jsonify({"message": "Post not found"}), 404
+
+    if post.user_id != current_user.id:
+        return jsonify({"message": "Unauthorized"}), 401
+
+    db.session.delete(post)
+    db.session.commit()
+
+    return jsonify({"message": "Post deleted"})
