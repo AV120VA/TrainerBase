@@ -1,6 +1,7 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import Post
+from app.models import Post, PostImage
+from app.models.db import db
 
 post_routes = Blueprint('posts', __name__)
 
@@ -14,7 +15,51 @@ def posts():
 # Get all of a user's posts
 @post_routes.route('/current', methods=["GET"])
 @login_required
-def userPosts():
+def user_posts():
     posts = Post.query.filter(Post.user_id == current_user.id)
     return jsonify({"Posts": [post.to_dict() for post in posts]})
+
+# Create a Post
+@post_routes.route('/', methods=["POST"])
+@login_required
+def new_post():
+    data = request.json
+
+    if not data or not data.get('title'):
+        return jsonify({"message": "Title is required"}), 400
+
+    post_data = {
+        "title": data['title'],
+        'user_id': current_user.id,
+    }
+
+    if 'content' in data:
+        post_data['content'] = data['content']
+
+    post = Post(**post_data)
+    db.session.add(post)
+    db.session.commit()
+
+    return jsonify(post.to_dict())
+
+# Add an Image to a Post
+@post_routes.route('/<int:post_id>/images', methods=["POST"])
+@login_required
+def add_image(post_id):
+    post = Post.query.get(post_id)
+    if not post:
+        return jsonify({"message": "Post not found"}), 404
+
+    if post.user_id != current_user.id:
+        return jsonify({"message": "You can't add images to a post that isn't yours"}), 403
+
+    data = request.json
+    if not data or not data.get('url'):
+        return jsonify({"message": "URL is required"}), 400
+
+    image = PostImage(post_id=post_id, url=data['url'])
+    db.session.add(image)
+    db.session.commit()
+
+    return jsonify(image.to_dict())
 
