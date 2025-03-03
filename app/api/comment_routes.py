@@ -61,3 +61,20 @@ def edit_comment(comment_id):
     db.session.commit()
 
     return jsonify(comment.to_dict())
+
+# Delete a Comment
+@comment_routes.route('/<int:comment_id>', methods=["DELETE"])
+@login_required
+def delete_comment(comment_id):
+    comment = Comment.query.get(comment_id)
+
+    if comment is None:
+        return jsonify({"message": "Comment not found"}), 404
+
+    if comment.user_id != current_user.id:
+        return jsonify({"message": "Unauthorized"}), 403
+
+    db.session.delete(comment)
+    db.session.commit()
+
+    return jsonify({"message": "Comment deleted"})
