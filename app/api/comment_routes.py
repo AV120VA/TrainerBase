@@ -40,3 +40,24 @@ def new_comment():
     db.session.commit()
 
     return jsonify(comment.to_dict())
+
+# Edit a Comment
+@comment_routes.route('/<int:comment_id>', methods=["PUT"])
+@login_required
+def edit_comment(comment_id):
+    comment = Comment.query.get(comment_id)
+    if not comment:
+        return jsonify({"message": "Comment not found"}), 404
+
+    if comment.user_id != current_user.id:
+        return jsonify({"message": "Unauthorized"}), 403
+
+    data = request.json
+
+    if not data:
+        return jsonify({"message": "Invalid data"}), 400
+
+    comment.content = data['content']
+    db.session.commit()
+
+    return jsonify(comment.to_dict())
