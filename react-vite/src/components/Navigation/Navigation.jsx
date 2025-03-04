@@ -4,15 +4,15 @@ import "./Navigation.css";
 
 function Navigation() {
   return (
-    <ul>
-      <li>
+    <div className="nav-container">
+      <div className="logo-box" style={{ color: "white" }}>
+        LOGO
+      </div>
+      <div className="home-profile-box">
         <NavLink to="/">Home</NavLink>
-      </li>
-
-      <li>
         <ProfileButton />
-      </li>
-    </ul>
+      </div>
+    </div>
   );
 }
 
