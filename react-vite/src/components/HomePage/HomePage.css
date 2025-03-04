@@ -5,6 +5,7 @@
   height: fit-content;
   align-items: center;
   margin-top: 120px;
+  gap: 20px;
 }
 
 .new-post-ta {
@@ -42,4 +43,5 @@
 
 textarea:focus {
   outline: 2px solid #f41624;
+  box-shadow: 0px 4px 10px rgba(244, 22, 36, 0.5);
 }

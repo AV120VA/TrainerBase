@@ -1,3 +1,4 @@
+import Post from "../Post";
 import "./HomePage.css";
 
 function HomePage() {
@@ -10,6 +11,7 @@ function HomePage() {
         ></textarea>
         <button className="new-post-button">Publish</button>
       </div>
+      <Post />
     </div>
   );
 }
