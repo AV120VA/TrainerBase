@@ -21,7 +21,7 @@ export const getPosts = () => async (dispatch) => {
 
   if (response.ok) {
     const data = await response.json();
-    const posts = data.posts;
+    const posts = data.Posts;
     dispatch(loadPost(posts));
   } else {
     return await response.json();
@@ -35,11 +35,11 @@ const initialState = {};
 function postReducer(state = initialState, action) {
   switch (action.type) {
     case LOAD_POSTS:
-      const newPosts = {};
+      const allPosts = {};
       action.posts.forEach((post) => {
-        newPosts[post.id] = post;
+        allPosts[post.id] = post;
       });
-      return newPosts;
+      return { ...state, allPosts };
     default:
       return state;
   }
