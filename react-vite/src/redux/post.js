@@ -34,12 +34,13 @@ const initialState = {};
 
 function postReducer(state = initialState, action) {
   switch (action.type) {
-    case LOAD_POSTS:
+    case LOAD_POSTS: {
       const allPosts = {};
       action.posts.forEach((post) => {
         allPosts[post.id] = post;
       });
       return { ...state, allPosts };
+    }
     default:
       return state;
   }

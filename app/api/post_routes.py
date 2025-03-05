@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import Post, PostImage
+from app.models import Post, PostImage, User
 from app.models.db import db
 
 post_routes = Blueprint('posts', __name__)
@@ -8,9 +8,24 @@ post_routes = Blueprint('posts', __name__)
 # Get all posts
 @post_routes.route('/', methods=["GET"])
 def posts():
-    # test only for now, add more functionality to this
     posts = Post.query.all()
-    return jsonify({"Posts": [post.to_dict() for post in posts]})
+    result = []
+
+    for post in posts:
+        user = User.query.get(post.user_id)
+        post_images = PostImage.query.filter_by(post_id=post.id).all()
+        images = [image.url for image in post_images]
+
+        post_dict = post.to_dict()
+        post_dict['User'] = {
+            'username': user.username,
+        }
+        post_dict['PostImages'] = images
+
+        result.append(post_dict)
+
+    return jsonify({"Posts": result})
+
 
 # Get all of a user's posts
 @post_routes.route('/current', methods=["GET"])
