@@ -3,6 +3,7 @@ import LoginFormPage from "../components/LoginFormPage";
 import SignupFormPage from "../components/SignupFormPage";
 import Layout from "./Layout";
 import HomePage from "../components/HomePage/HomePage";
+import UserPosts from "../components/UserPosts/UserPosts";
 
 export const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ export const router = createBrowserRouter([
       {
         path: "signup",
         element: <SignupFormPage />,
+      },
+      {
+        path: "my-posts",
+        element: <UserPosts />,
       },
     ],
   },
