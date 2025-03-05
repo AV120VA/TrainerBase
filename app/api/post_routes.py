@@ -33,7 +33,23 @@ def posts():
 @login_required
 def user_posts():
     posts = Post.query.filter(Post.user_id == current_user.id)
-    return jsonify({"Posts": [post.to_dict() for post in posts]})
+    result = []
+
+    for post in posts:
+        user = User.query.get(post.user_id)
+        post_image = PostImage.query.filter_by(post_id=post.id).first()
+        image_url = post_image.image_url if post_image else None
+
+        post_dict = post.to_dict()
+        post_dict['User'] = {
+            'username': user.username,
+        }
+        if image_url is not None:
+            post_dict['PostImage'] = image_url
+
+        result.append(post_dict)
+
+    return jsonify({"Posts": result})
 
 # Create a Post
 @post_routes.route('/', methods=["POST"])
