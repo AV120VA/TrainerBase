@@ -6,7 +6,7 @@
   padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
 }
 
 .post-text {
@@ -33,4 +33,41 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+}
+
+.post-title {
+  font-size: 20px;
+}
+
+.post-content {
+  font-size: 17px;
+}
+
+.post-header-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.post-more {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 25px;
+  align-self: flex-start;
+}
+.post-reactions {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.like-button-image {
+  height: 35px;
+  filter: grayscale(100%);
+}
+
+.comment-button-image {
+  height: 28px;
+  filter: grayscale(100%);
 }
