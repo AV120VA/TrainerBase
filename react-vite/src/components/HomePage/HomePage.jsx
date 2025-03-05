@@ -35,7 +35,7 @@ function HomePage() {
               <div className="new-post-title-url-box">
                 <textarea
                   className="new-post-input2"
-                  placeholder="Title"
+                  placeholder="Title..."
                 ></textarea>
                 <textarea
                   className="new-post-input2"

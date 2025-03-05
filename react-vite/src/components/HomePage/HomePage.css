@@ -10,7 +10,7 @@
 
 .new-post-ta {
   background-color: #262626;
-  width: 45%;
+  width: 40%;
   padding: 18px 0px 18px 0px;
   display: flex;
   align-items: center;
@@ -37,7 +37,7 @@
 
 .new-post-title-url-box {
   display: flex;
-  gap: 10px;
+  gap: 7px;
 }
 
 .new-post-input {
