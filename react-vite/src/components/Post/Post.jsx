@@ -17,7 +17,9 @@ function Post({ post }) {
       </div>
       <h3 className="post-text post-title">{post.title}</h3>
       <p className="post-text post-content">{post.content}</p>
-      {post.PostImage && <img src={post.PostImage} alt="post" />}
+      {post.PostImage && (
+        <img src={post.PostImage} alt="post" style={{ borderRadius: "18px" }} />
+      )}
       <div className="post-reactions">
         <img
           src="/thumbs-up.png"

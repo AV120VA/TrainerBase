@@ -1,12 +1,13 @@
 .post-container {
-  border-radius: 15px;
   width: 33%;
-  background-color: #262626;
+  /* border-radius: 15px;
+  background-color: #262626; */
   height: fit-content;
   padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 12px;
+  border-bottom: 2px solid #262626;
 }
 
 .post-text {
@@ -55,6 +56,7 @@
   color: white;
   font-size: 25px;
   align-self: flex-start;
+  cursor: pointer;
 }
 .post-reactions {
   display: flex;
@@ -65,9 +67,11 @@
 .like-button-image {
   height: 35px;
   filter: grayscale(100%);
+  cursor: pointer;
 }
 
 .comment-button-image {
   height: 28px;
   filter: grayscale(100%);
+  cursor: pointer;
 }
