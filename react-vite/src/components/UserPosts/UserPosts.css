@@ -1,0 +1,14 @@
+.user-posts-container {
+  margin-top: 125px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+.user-posts-header {
+  color: white;
+  font-size: 40px;
+  font-weight: 200;
+}

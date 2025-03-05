@@ -14,11 +14,16 @@ export default function Layout() {
 
   return (
     <>
-      <ModalProvider>
-        <Navigation />
-        {isLoaded && <Outlet />}
-        <Modal />
-      </ModalProvider>
+      <div
+        className="everything-container"
+        style={{ display: "flex", flexDirection: "column" }}
+      >
+        <ModalProvider>
+          <Navigation />
+          {isLoaded && <Outlet />}
+          <Modal />
+        </ModalProvider>
+      </div>
     </>
   );
 }
