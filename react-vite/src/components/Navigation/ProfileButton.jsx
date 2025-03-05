@@ -1,10 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { FaUserCircle } from 'react-icons/fa';
 import { thunkLogout } from "../../redux/session";
-import OpenModalMenuItem from "./OpenModalMenuItem";
-import LoginFormModal from "../LoginFormModal";
-import SignupFormModal from "../SignupFormModal";
 
 function ProfileButton() {
   const dispatch = useDispatch();
@@ -41,33 +37,56 @@ function ProfileButton() {
 
   return (
     <>
-      <button onClick={toggleMenu}>
-        <FaUserCircle />
+      <button
+        onClick={toggleMenu}
+        style={{
+          border: "none",
+          height: "50px",
+          width: "50px",
+          borderRadius: "50%",
+          backgroundColor: "#f41624",
+          color: "white",
+          fontSize: "20px",
+        }}
+      >
+        {user.username[0].toUpperCase()}
       </button>
       {showMenu && (
-        <ul className={"profile-dropdown"} ref={ulRef}>
-          {user ? (
-            <>
-              <li>{user.username}</li>
-              <li>{user.email}</li>
-              <li>
-                <button onClick={logout}>Log Out</button>
-              </li>
-            </>
-          ) : (
-            <>
-              <OpenModalMenuItem
-                itemText="Log In"
-                onItemClick={closeMenu}
-                modalComponent={<LoginFormModal />}
-              />
-              <OpenModalMenuItem
-                itemText="Sign Up"
-                onItemClick={closeMenu}
-                modalComponent={<SignupFormModal />}
-              />
-            </>
-          )}
+        <ul
+          className={"profile-dropdown"}
+          style={{
+            backgroundColor: "#262626",
+            display: "flex",
+            flexDirection: "column",
+            padding: "15px",
+            alignItems: "flex-start",
+            gap: "6px",
+            position: "absolute",
+            top: "110px",
+            right: "12px",
+          }}
+          ref={ulRef}
+        >
+          <li style={{ listStyleType: "none", color: "white" }}>
+            {user.username}
+          </li>
+          <li style={{ listStyleType: "none", color: "white" }}>
+            {user.email}
+          </li>
+          <li style={{ listStyleType: "none" }}>
+            <button
+              style={{
+                border: "none",
+                backgroundColor: "#f41624",
+                color: "white",
+                height: "30px",
+                width: "100px",
+              }}
+              onClick={logout}
+            >
+              Log Out
+            </button>
+          </li>
         </ul>
       )}
     </>
