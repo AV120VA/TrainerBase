@@ -36,7 +36,7 @@ export const getPosts = () => async (dispatch) => {
   }
 };
 
-export const getUserPosts = (userId) => async (dispatch) => {
+export const getUserPosts = () => async (dispatch) => {
   const response = await csrfFetch(`/api/posts/current`);
 
   if (response.ok) {
