@@ -13,14 +13,15 @@ def posts():
 
     for post in posts:
         user = User.query.get(post.user_id)
-        post_images = PostImage.query.filter_by(post_id=post.id).all()
-        images = [image.url for image in post_images]
+        post_image = PostImage.query.filter_by(post_id=post.id).first()
+        image_url = post_image.image_url if post_image else None
 
         post_dict = post.to_dict()
         post_dict['User'] = {
             'username': user.username,
         }
-        post_dict['PostImages'] = images
+        if image_url is not None:
+            post_dict['PostImage'] = image_url
 
         result.append(post_dict)
 

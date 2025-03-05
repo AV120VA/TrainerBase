@@ -8,6 +8,7 @@ function Post({ post }) {
       <p className="post-text">{post.created_at.slice(0, 16)}</p>
       <h3 className="post-text">{post.title}</h3>
       <p className="post-text">{post.content}</p>
+      {post.PostImage && <img src={post.PostImage} alt="post" />}
     </div>
   );
 }
