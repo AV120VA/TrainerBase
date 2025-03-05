@@ -5,7 +5,7 @@ from datetime import datetime
 def seed_posts():
     demo_post1 = Post(
         title = 'No hits as usual smh',
-        content= 'Stellar Crown hit rates are so bad',
+        content= 'Prismatic Evolutions hit rates are so bad',
         likes = 0,
         user_id = 1,
         created_at = datetime.now(),
