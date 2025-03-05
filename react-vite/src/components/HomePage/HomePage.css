@@ -4,8 +4,8 @@
   width: 100%;
   height: fit-content;
   align-items: center;
-  margin-top: 120px;
-  gap: 15px;
+  margin-top: 130px;
+  gap: 20px;
 }
 
 .new-post-ta {
@@ -15,27 +15,50 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 30px;
   border-radius: 15px;
   height: fit-content;
+}
+
+.new-post-input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 80%;
 }
 
 .new-post-button {
   background-color: #f41624;
   color: white;
   border: none;
-  height: 35px;
-  width: 80px;
+  height: 45px;
+  width: 90px;
   border-radius: 15px;
+}
+
+.new-post-title-url-box {
+  display: flex;
+  gap: 10px;
 }
 
 .new-post-input {
   background-color: #202020;
   resize: none;
+  height: 35px;
+  padding: 15px 0px 5px 15px;
+  font-size: 17px;
+  width: 90%;
+  border: #393839 2px solid;
+  border-radius: 15px;
+  color: white;
+}
+
+.new-post-input2 {
+  background-color: #202020;
+  resize: none;
   height: 25px;
   padding: 10px 0px 5px 15px;
   font-size: 17px;
-  width: 70%;
+  width: 43%;
   border: #393839 2px solid;
   border-radius: 15px;
   color: white;

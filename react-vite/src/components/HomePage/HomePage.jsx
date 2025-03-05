@@ -31,10 +31,22 @@ function HomePage() {
       {isLoaded && (
         <div className="home-page-container">
           <div className="new-post-ta">
-            <textarea
-              className="new-post-input"
-              placeholder="What's on your mind?"
-            ></textarea>
+            <div className="new-post-input-container">
+              <div className="new-post-title-url-box">
+                <textarea
+                  className="new-post-input2"
+                  placeholder="Title"
+                ></textarea>
+                <textarea
+                  className="new-post-input2"
+                  placeholder="Image URL..."
+                ></textarea>
+              </div>
+              <textarea
+                className="new-post-input"
+                placeholder="What's on your mind?"
+              ></textarea>
+            </div>
             <button className="new-post-button">Publish</button>
           </div>
           {posts.map((post) => (
