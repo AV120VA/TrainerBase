@@ -1,12 +1,13 @@
 import { csrfFetch } from "./csrf";
 
-// const headers = {
-//   "Content-Type": "application/json",
-// };
+const headers = {
+  "Content-Type": "application/json",
+};
 
 //Action Types
 const LOAD_POSTS = "posts/LOAD_POSTS";
 const LOAD_USER_POSTS = "posts/LOAD_USER_POSTS";
+const ADD_POST = "posts/ADD_POST";
 
 // Action Creators
 const loadPost = (posts) => {
@@ -20,6 +21,13 @@ const loadUserPosts = (posts) => {
   return {
     type: LOAD_USER_POSTS,
     posts,
+  };
+};
+
+const addPost = (post) => {
+  return {
+    type: ADD_POST,
+    post,
   };
 };
 
@@ -48,6 +56,28 @@ export const getUserPosts = () => async (dispatch) => {
   }
 };
 
+export const createPost = (postData) => async (dispatch) => {
+  try {
+    const response = await csrfFetch("/api/posts", {
+      method: "POST",
+      headers,
+      body: JSON.stringify(postData),
+    });
+
+    if (response.ok) {
+      const post = await response.json();
+      dispatch(addPost(post));
+      return post;
+    } else {
+      const error = await response.json();
+      throw new error(error.message);
+    }
+  } catch (e) {
+    console.log("Error adding post:", e);
+    return e;
+  }
+};
+
 // Reducer
 
 const initialState = {};
@@ -67,6 +97,12 @@ function postReducer(state = initialState, action) {
         userPosts[post.id] = post;
       });
       return { ...state, userPosts };
+    }
+    case ADD_POST: {
+      const newState = { ...state };
+      newState.userPosts[action.post.id] = action.post;
+      newState.allPosts[action.post.id] = action.post;
+      return newState;
     }
     default:
       return state;
