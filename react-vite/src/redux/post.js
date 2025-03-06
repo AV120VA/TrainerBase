@@ -58,7 +58,7 @@ export const getUserPosts = () => async (dispatch) => {
 
 export const createPost = (postData) => async (dispatch) => {
   try {
-    const response = await csrfFetch("/api/posts", {
+    const response = await csrfFetch("/api/posts/", {
       method: "POST",
       headers,
       body: JSON.stringify(postData),
@@ -80,7 +80,10 @@ export const createPost = (postData) => async (dispatch) => {
 
 // Reducer
 
-const initialState = {};
+const initialState = {
+  allPosts: {},
+  userPosts: {},
+};
 
 function postReducer(state = initialState, action) {
   switch (action.type) {

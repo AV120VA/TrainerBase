@@ -12,3 +12,24 @@
   font-size: 40px;
   font-weight: 200;
 }
+
+.user-posts-header-box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+}
+
+.create-post-toggle {
+  background-color: #f41624;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  color: white;
+  width: 85px;
+  height: 35px;
+  font-size: 19px;
+  border-radius: 15px;
+  cursor: pointer;
+}

@@ -9,6 +9,7 @@ function HomePage() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   const { allPosts } = useSelector((state) => state.posts);
+  const user = useSelector((state) => state.session.user);
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -31,7 +32,7 @@ function HomePage() {
     <>
       {isLoaded && (
         <div className="home-page-container">
-          <CreatePost />
+          {user && <CreatePost />}
           {posts.map((post) => (
             <Post key={post.id} post={post} />
           ))}

@@ -45,9 +45,35 @@ function CreatePost() {
     setImgUrl(e.target.value);
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const newPost = await dispatch(createPost(formData));
+    if (newPost.id) {
+      dispatch(getPosts());
+      dispatch(getUserPosts());
+      setFormData({
+        title: "",
+        content: "",
+      });
+
+      if (imgUrl) {
+        await fetch(`/api/posts/${newPost.id}/images`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ url: imgUrl }),
+        });
+      }
+      setImgUrl("");
+      setShowErrors(false);
+    }
+  };
+
   return (
     <div className="new-post-ta">
-      <form className="new-post-input-container">
+      <form onSubmit={handleSubmit} className="new-post-input-container">
         <div className="post-input-positioning">
           <div className="new-post-title-url-box">
             <textarea
