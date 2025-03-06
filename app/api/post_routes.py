@@ -89,7 +89,7 @@ def add_image(post_id):
     if not data or not data.get('url'):
         return jsonify({"message": "URL is required"}), 400
 
-    image = PostImage(post_id=post_id, url=data['url'])
+    image = PostImage(post_id=post_id, image_url=data['url'])
     db.session.add(image)
     db.session.commit()
 

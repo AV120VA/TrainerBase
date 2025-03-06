@@ -35,6 +35,7 @@ function ProfileButton() {
     e.preventDefault();
     dispatch(thunkLogout());
     closeMenu();
+    navigate("/");
   };
 
   return (
@@ -82,7 +83,10 @@ function ProfileButton() {
               color: "#f41624",
               cursor: "pointer",
             }}
-            onClick={() => navigate("/my-posts")}
+            onClick={() => {
+              navigate("/my-posts");
+              closeMenu();
+            }}
           >
             Manage Posts
           </li>
@@ -96,6 +100,7 @@ function ProfileButton() {
                 width: "100px",
                 fontSize: "16px",
                 cursor: "pointer",
+                borderRadius: "15px",
               }}
               onClick={logout}
             >
