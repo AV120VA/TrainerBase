@@ -1,0 +1,78 @@
+.new-post-ta {
+  background-color: #262626;
+  width: 40%;
+  padding: 18px 0px 18px 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  height: fit-content;
+}
+
+.new-post-input-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  width: 80%;
+}
+
+.post-input-positioning {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+}
+
+.new-post-button {
+  background-color: #f41624;
+  color: white;
+  border: none;
+  height: 45px;
+  width: 90px;
+  border-radius: 15px;
+  font-size: 16px;
+}
+
+.new-post-title-url-box {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  gap: 10px;
+}
+
+.new-post-input {
+  background-color: #202020;
+  resize: none;
+  height: 35px;
+  padding: 15px 0px 5px 15px;
+  font-size: 17px;
+  width: 90%;
+  border: #393839 2px solid;
+  border-radius: 15px;
+  color: white;
+}
+
+.new-post-input2 {
+  background-color: #202020;
+  resize: none;
+  height: 25px;
+  padding: 10px 0px 5px 15px;
+  font-size: 17px;
+  width: 42%;
+  border: #393839 2px solid;
+  border-radius: 15px;
+  color: white;
+}
+
+textarea:focus {
+  outline: 2px solid #f41624;
+  box-shadow: 0px 4px 10px rgba(244, 22, 36, 0.5);
+}
+
+.post-error-message {
+  color: #f41624;
+  font-size: 16px;
+}

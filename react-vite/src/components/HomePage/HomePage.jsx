@@ -1,4 +1,5 @@
 import Post from "../Post";
+import CreatePost from "../CreatePost";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getPosts } from "../../redux/post";
@@ -8,6 +9,7 @@ function HomePage() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   const { allPosts } = useSelector((state) => state.posts);
+  const user = useSelector((state) => state.session.user);
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -30,25 +32,7 @@ function HomePage() {
     <>
       {isLoaded && (
         <div className="home-page-container">
-          <div className="new-post-ta">
-            <div className="new-post-input-container">
-              <div className="new-post-title-url-box">
-                <textarea
-                  className="new-post-input2"
-                  placeholder="Title..."
-                ></textarea>
-                <textarea
-                  className="new-post-input2"
-                  placeholder="Image URL..."
-                ></textarea>
-              </div>
-              <textarea
-                className="new-post-input"
-                placeholder="What's on your mind?"
-              ></textarea>
-            </div>
-            <button className="new-post-button">Publish</button>
-          </div>
+          {user && <CreatePost />}
           {posts.map((post) => (
             <Post key={post.id} post={post} />
           ))}
