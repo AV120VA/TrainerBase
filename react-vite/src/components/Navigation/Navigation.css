@@ -17,11 +17,27 @@
   display: flex;
   align-items: center;
   gap: 20px;
-  margin-right: 20px;
+  margin-right: 40px;
 }
 
 .logo-box {
   display: flex;
   align-items: center;
   margin-left: 20px;
+}
+
+.not-logged-buttons-box {
+  display: flex;
+  gap: 20px;
+}
+
+.non-logged-button {
+  border: none;
+  color: white;
+  background-color: #f41624;
+  height: 35px;
+  width: 80px;
+  font-size: 16px;
+  border-radius: 20px;
+  cursor: pointer;
 }

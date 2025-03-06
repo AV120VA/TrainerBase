@@ -16,7 +16,9 @@ function Post({ post }) {
         <button className="post-more">...</button>
       </div>
       <h3 className="post-text post-title">{post.title}</h3>
-      <p className="post-text post-content">{post.content}</p>
+      <div className="post-content-box">
+        <p className="post-text post-content">{post.content}</p>
+      </div>
       {post.PostImage && (
         <img src={post.PostImage} alt="post" style={{ borderRadius: "18px" }} />
       )}
