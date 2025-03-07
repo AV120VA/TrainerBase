@@ -16,7 +16,7 @@ function Navigation() {
         style={{ color: "white", cursor: "pointer" }}
         onClick={() => navigate("/")}
       >
-        LOGO
+        <img src="/logo.png" alt="logo" className="logo-img" />
       </div>
       <div className="home-profile-box">
         {user ? (
