@@ -48,21 +48,49 @@
   justify-content: space-between;
 }
 
+.post-more-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  position: relative;
+}
+
 .post-more {
   background: none;
   border: none;
   color: white;
   font-size: 25px;
-  align-self: flex-start;
+  align-self: flex-end;
   cursor: pointer;
 }
 
+.post-more-options-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 7px;
+  position: absolute;
+  top: 85%;
+  width: 101px;
+}
+
 .post-more-options {
-  font-size: 18px;
+  font-size: 16px;
+  align-self: flex-end;
+  cursor: pointer;
 }
 
 .post-more-delete {
   color: #f41624;
+}
+
+.post-more-edit {
+  color: #1e90ff;
+}
+
+.post-more-save {
+  color: #20c997;
 }
 
 .post-reactions {
