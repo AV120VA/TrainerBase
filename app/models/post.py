@@ -18,6 +18,7 @@ class Post(db.Model):
     updated_at = db.Column(db.DateTime, nullable=False, server_default=func.now(), onupdate=func.now())
 
     tags = relationship('Tag', secondary=add_prefix_for_prod('post_tags'), back_populates='posts')
+    image = relationship('PostImage', uselist=False, back_populates='post', cascade='all, delete-orphan')
 
     def to_dict(self):
         return {
@@ -27,5 +28,6 @@ class Post(db.Model):
             'likes': self.likes,
             'created_at': self.created_at,
             'updated_at': self.updated_at,
-            'tags': [tag.to_dict() for tag in self.tags]
+            'tags': [tag.to_dict() for tag in self.tags],
+            'image': self.image.to_dict() if self.image else None
         }
