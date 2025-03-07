@@ -60,14 +60,15 @@ function ProfileButton() {
           className={"profile-dropdown"}
           style={{
             backgroundColor: "#262626",
+            borderRadius: "15px",
             display: "flex",
             flexDirection: "column",
             padding: "15px",
-            alignItems: "flex-start",
+            alignItems: "center",
             gap: "10px",
             position: "absolute",
             top: "110px",
-            right: "12px",
+            right: "25px",
           }}
           ref={ulRef}
         >

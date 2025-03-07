@@ -50,8 +50,6 @@ function CreatePost() {
 
     const newPost = await dispatch(createPost(formData));
     if (newPost.id) {
-      dispatch(getPosts());
-      dispatch(getUserPosts());
       setFormData({
         title: "",
         content: "",
@@ -68,6 +66,8 @@ function CreatePost() {
       }
       setImgUrl("");
       setShowErrors(false);
+      await dispatch(getPosts());
+      await dispatch(getUserPosts());
     }
   };
 

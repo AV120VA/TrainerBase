@@ -1,0 +1,39 @@
+.delete-post-container {
+  background-color: #262626;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  align-items: center;
+}
+
+.delete-post-header {
+  color: white;
+  font-size: 30px;
+}
+
+.delete-post-buttons {
+  display: flex;
+  gap: 25px;
+}
+
+.delete-post-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 35px;
+  width: 65px;
+  border: none;
+  font-size: 15px;
+  border-radius: 15px;
+  color: white;
+  cursor: pointer;
+}
+
+.post-delete-confirm {
+  background-color: #f41624;
+}
+
+.post-delete-cancel {
+  background-color: #1e90ff;
+}
