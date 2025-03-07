@@ -1,6 +1,13 @@
+import { useSelector } from "react-redux";
+import { useState } from "react";
+import OpenModalButton from "../OpenModalButton";
+import DeletePost from "../DeletePost/DeletePost";
 import "./Post.css";
 
 function Post({ post }) {
+  const user = useSelector((state) => state.session.user);
+  const [showMore, setShowMore] = useState(false);
+
   return (
     <div className="post-container">
       <div className="post-header-box">
@@ -13,7 +20,33 @@ function Post({ post }) {
             <p className="post-text">{post.created_at.slice(0, 16)}</p>
           </div>
         </div>
-        <button className="post-more">...</button>
+        <div className="post-more-box">
+          <button onClick={() => setShowMore(!showMore)} className="post-more">
+            ...
+          </button>
+          {showMore && (
+            <div className="post-more-options-box">
+              {user.id === post.User.user_id ? (
+                <>
+                  <OpenModalButton
+                    className={"post-more-options post-more-edit"}
+                    buttonText="Edit"
+                  />
+                  <OpenModalButton
+                    className={"post-more-options post-more-delete"}
+                    buttonText="Delete"
+                    modalComponent={<DeletePost postId={post.id} />}
+                  />
+                </>
+              ) : (
+                <OpenModalButton
+                  className={"post-more-options post-more-save"}
+                  buttonText="Save For Later"
+                />
+              )}
+            </div>
+          )}
+        </div>
       </div>
       <h3 className="post-text post-title">{post.title}</h3>
       <div className="post-content-box">
