@@ -19,6 +19,7 @@ def posts():
         post_dict = post.to_dict()
         post_dict['User'] = {
             'username': user.username,
+            'user_id': user.id,
         }
         if image_url is not None:
             post_dict['PostImage'] = image_url
@@ -43,6 +44,7 @@ def user_posts():
         post_dict = post.to_dict()
         post_dict['User'] = {
             'username': user.username,
+            'user_id': user.id,
         }
         if image_url is not None:
             post_dict['PostImage'] = image_url

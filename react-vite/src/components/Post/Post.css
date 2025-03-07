@@ -1,7 +1,5 @@
 .post-container {
   width: 33%;
-  /* border-radius: 15px;
-  background-color: #262626; */
   height: fit-content;
   padding: 20px;
   display: flex;
@@ -58,6 +56,15 @@
   align-self: flex-start;
   cursor: pointer;
 }
+
+.post-more-options {
+  font-size: 18px;
+}
+
+.post-more-delete {
+  color: #f41624;
+}
+
 .post-reactions {
   display: flex;
   gap: 15px;

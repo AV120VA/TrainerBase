@@ -1,6 +1,8 @@
+import { useSelector } from "react-redux";
 import "./Post.css";
 
 function Post({ post }) {
+  const user = useSelector((state) => state.session.user);
   return (
     <div className="post-container">
       <div className="post-header-box">
