@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import OpenModalButton from "../OpenModalButton";
+import DeletePost from "../DeletePost/DeletePost";
 import "./Post.css";
 
 function Post({ post }) {
@@ -34,6 +35,7 @@ function Post({ post }) {
                   <OpenModalButton
                     className={"post-more-options post-more-delete"}
                     buttonText="Delete"
+                    modalComponent={<DeletePost postId={post.id} />}
                   />
                 </>
               ) : (
