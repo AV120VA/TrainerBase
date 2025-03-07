@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { useState } from "react";
+import OpenModalButton from "../OpenModalButton";
 import "./Post.css";
 
 function Post({ post }) {
@@ -26,13 +27,20 @@ function Post({ post }) {
             <div className="post-more-options-box">
               {user.id === post.User.user_id ? (
                 <>
-                  <p className="post-more-options post-more-edit">Edit</p>
-                  <p className="post-more-options post-more-delete">Delete</p>
+                  <OpenModalButton
+                    className={"post-more-options post-more-edit"}
+                    buttonText="Edit"
+                  />
+                  <OpenModalButton
+                    className={"post-more-options post-more-delete"}
+                    buttonText="Delete"
+                  />
                 </>
               ) : (
-                <p className="post-more-options post-more-save">
-                  Save for Later
-                </p>
+                <OpenModalButton
+                  className={"post-more-options post-more-save"}
+                  buttonText="Save For Later"
+                />
               )}
             </div>
           )}
