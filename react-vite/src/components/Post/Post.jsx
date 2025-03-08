@@ -1,12 +1,30 @@
 import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import OpenModalButton from "../OpenModalButton";
 import DeletePost from "../DeletePost/DeletePost";
+import EditPost from "../EditPost";
 import "./Post.css";
 
 function Post({ post }) {
   const user = useSelector((state) => state.session.user);
   const [showMore, setShowMore] = useState(false);
+  const moreOptionsRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        moreOptionsRef.current &&
+        !moreOptionsRef.current.contains(event.target)
+      ) {
+        setShowMore(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [moreOptionsRef]);
 
   return (
     <div className="post-container">
@@ -21,31 +39,41 @@ function Post({ post }) {
           </div>
         </div>
         <div className="post-more-box">
-          <button onClick={() => setShowMore(!showMore)} className="post-more">
-            ...
-          </button>
-          {showMore && (
-            <div className="post-more-options-box">
-              {user.id === post.User.user_id ? (
-                <>
-                  <OpenModalButton
-                    className={"post-more-options post-more-edit"}
-                    buttonText="Edit"
-                  />
-                  <OpenModalButton
-                    className={"post-more-options post-more-delete"}
-                    buttonText="Delete"
-                    modalComponent={<DeletePost postId={post.id} />}
-                  />
-                </>
-              ) : (
-                <OpenModalButton
-                  className={"post-more-options post-more-save"}
-                  buttonText="Save For Later"
-                />
-              )}
-            </div>
-          )}
+          <div className="post-more-box" ref={moreOptionsRef}>
+            {user ? (
+              <>
+                <button
+                  onClick={() => setShowMore(!showMore)}
+                  className="post-more"
+                >
+                  ...
+                </button>
+                {showMore && (
+                  <div className="post-more-options-box">
+                    {user.id === post.User.user_id ? (
+                      <>
+                        <OpenModalButton
+                          className={"post-more-options post-more-edit"}
+                          buttonText="Edit"
+                          modalComponent={<EditPost post={post} />}
+                        />
+                        <OpenModalButton
+                          className={"post-more-options post-more-delete"}
+                          buttonText="Delete"
+                          modalComponent={<DeletePost postId={post.id} />}
+                        />
+                      </>
+                    ) : (
+                      <OpenModalButton
+                        className={"post-more-options post-more-save"}
+                        buttonText="Save For Later"
+                      />
+                    )}
+                  </div>
+                )}
+              </>
+            ) : null}
+          </div>
         </div>
       </div>
       <h3 className="post-text post-title">{post.title}</h3>
@@ -55,7 +83,10 @@ function Post({ post }) {
       {post.PostImage && (
         <img src={post.PostImage} alt="post" style={{ borderRadius: "18px" }} />
       )}
-      <div className="post-reactions">
+      <div
+        onClick={() => alert("Feature coming soon!")}
+        className="post-reactions"
+      >
         <img
           src="/thumbs-up.png"
           alt="thumbs up"

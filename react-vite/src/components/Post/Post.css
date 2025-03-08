@@ -63,6 +63,7 @@
   font-size: 25px;
   align-self: flex-end;
   cursor: pointer;
+  margin-bottom: 15px;
 }
 
 .post-more-options-box {
@@ -76,7 +77,7 @@
 }
 
 .post-more-options {
-  font-size: 16px;
+  font-size: 17px;
   align-self: flex-end;
   cursor: pointer;
   border: none;
@@ -95,7 +96,7 @@
 
 .post-more-save {
   color: #20c997;
-  width: 110px;
+  width: 140px;
 }
 
 .post-reactions {

@@ -42,9 +42,12 @@ function UserPosts() {
             </button>
           </div>
           {showCreatePost && <CreatePost />}
-          {posts.map((post) => (
-            <Post key={post.id} post={post} />
-          ))}
+
+          {posts.length > 0 ? (
+            posts.map((post) => <Post key={post.id} post={post} />)
+          ) : (
+            <h3 className="create-first-post">Create Your First Post!</h3>
+          )}
         </div>
       )}
     </>

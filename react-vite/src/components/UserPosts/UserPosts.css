@@ -1,5 +1,5 @@
 .user-posts-container {
-  margin-top: 125px;
+  margin-top: 135px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -11,6 +11,13 @@
   color: white;
   font-size: 40px;
   font-weight: 200;
+}
+
+.create-first-post {
+  color: white;
+  font-size: 25px;
+  font-weight: 200;
+  margin-top: 15px;
 }
 
 .user-posts-header-box {
