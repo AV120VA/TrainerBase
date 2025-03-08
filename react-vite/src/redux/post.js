@@ -158,7 +158,7 @@ function postReducer(state = initialState, action) {
       return newState;
     }
     case UPDATE_POST: {
-      const updatedPost = action.payload;
+      const updatedPost = action.post;
       const currentPost = state.allPosts[updatedPost.id];
       const updatedAllPosts = {
         ...state.allPosts,
