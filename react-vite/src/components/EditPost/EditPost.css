@@ -1,0 +1,74 @@
+.edit-post-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 400px;
+  height: fit-content;
+  gap: 15px;
+  background-color: #262626;
+  padding: 30px;
+}
+
+.edit-post-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 85%;
+  gap: 20px;
+}
+
+.edit-post-input-box {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.edit-post-header {
+  color: white;
+  font-weight: 200;
+  font-size: 30px;
+  color: #1e90ff;
+}
+
+.edit-post-label {
+  color: white;
+  font-size: 18px;
+}
+
+.edit-post-title-ta {
+  background-color: #202020;
+  color: white;
+  border: #757575 1px solid;
+  resize: none;
+  padding: 15px 0px 0px 15px;
+  font-size: 16px;
+  border-radius: 15px;
+}
+
+.edit-post-content-ta {
+  background-color: #202020;
+  color: white;
+  border: #757575 1px solid;
+  resize: none;
+  padding: 15px 0px 25px 15px;
+  font-size: 16px;
+  border-radius: 15px;
+}
+
+.edit-post-submit {
+  background-color: #1e90ff;
+  border: none;
+  height: 40px;
+  width: 80px;
+  color: white;
+  font-size: 18px;
+  border-radius: 15px;
+}
+
+.edit-post-ta-hl:focus {
+  outline: 2px solid #1e90ff;
+  box-shadow: 0px 4px 10px #1e90ff;
+}

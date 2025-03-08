@@ -9,6 +9,7 @@ const LOAD_POSTS = "posts/LOAD_POSTS";
 const LOAD_USER_POSTS = "posts/LOAD_USER_POSTS";
 const ADD_POST = "posts/ADD_POST";
 const DELETE_POST = "posts/DELETE_POST";
+const UPDATE_POST = "posts/UPDATE_POST";
 
 // Action Creators
 const loadPost = (posts) => {
@@ -36,6 +37,13 @@ const removePost = (postId) => {
   return {
     type: DELETE_POST,
     postId,
+  };
+};
+
+const editPost = (post) => {
+  return {
+    type: UPDATE_POST,
+    post,
   };
 };
 
@@ -86,6 +94,22 @@ export const createPost = (postData) => async (dispatch) => {
   }
 };
 
+export const updatePost = (postId, postData) => async (dispatch) => {
+  try {
+    const response = await csrfFetch(`/api/posts/${postId}`, {
+      method: "PUT",
+      headers,
+      body: JSON.stringify(postData),
+    });
+    const updatedPost = await response.json();
+    dispatch(editPost(updatedPost));
+    return updatedPost;
+  } catch (e) {
+    console.error("Error updating post:", e);
+    return e;
+  }
+};
+
 export const deletePost = (postId) => async (dispatch) => {
   try {
     const response = await csrfFetch(`/api/posts/${postId}`, {
@@ -132,6 +156,29 @@ function postReducer(state = initialState, action) {
       newState.userPosts[action.post.id] = action.post;
       newState.allPosts[action.post.id] = action.post;
       return newState;
+    }
+    case UPDATE_POST: {
+      const updatedPost = action.payload;
+      const currentPost = state.allPosts[updatedPost.id];
+      const updatedAllPosts = {
+        ...state.allPosts,
+        [updatedPost.id]: {
+          ...currentPost,
+          ...updatedPost,
+        },
+      };
+      const updatedUserPosts = {
+        ...state.userPosts,
+        [updatedPost.id]: {
+          ...currentPost,
+          ...updatedPost,
+        },
+      };
+      return {
+        ...state,
+        allPosts: updatedAllPosts,
+        userPosts: updatedUserPosts,
+      };
     }
     case DELETE_POST: {
       const newState = { ...state };
