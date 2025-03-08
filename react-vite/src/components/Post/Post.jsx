@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { useState, useEffect, useRef } from "react";
 import OpenModalButton from "../OpenModalButton";
 import DeletePost from "../DeletePost/DeletePost";
+import EditPost from "../EditPost";
 import "./Post.css";
 
 function Post({ post }) {
@@ -54,6 +55,7 @@ function Post({ post }) {
                         <OpenModalButton
                           className={"post-more-options post-more-edit"}
                           buttonText="Edit"
+                          modalComponent={<EditPost post={post} />}
                         />
                         <OpenModalButton
                           className={"post-more-options post-more-delete"}
