@@ -12,6 +12,10 @@
   color: white;
 }
 
+.post-image {
+  margin-bottom: 10px;
+}
+
 .post-author-info {
   display: flex;
   align-items: center;

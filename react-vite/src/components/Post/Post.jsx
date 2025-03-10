@@ -101,6 +101,7 @@ function Post({ post }) {
               src={post.PostImage}
               alt="post"
               style={{ borderRadius: "18px" }}
+              className="post-image"
             />
           )}
           <div className="post-reactions">
