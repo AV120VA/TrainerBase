@@ -7,12 +7,20 @@ import { createSelector } from "reselect";
 
 // Action Types
 const LOAD_POST_COMMENTS = "comments/LOAD_POST_COMMENTS";
+const LOAD_USER_COMMENTS = "comments/LOAD_USER_COMMENTS";
 
 // Action Creators
 const loadPostComments = (postId, comments) => {
   return {
     type: LOAD_POST_COMMENTS,
     postId,
+    comments,
+  };
+};
+
+const loadUserPosts = (comments) => {
+  return {
+    type: LOAD_USER_COMMENTS,
     comments,
   };
 };

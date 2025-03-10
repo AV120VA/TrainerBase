@@ -31,7 +31,22 @@ def comments(post_id):
 @login_required
 def user_comments():
     comments = Comment.query.filter(Comment.user_id == current_user.id)
-    return jsonify({"Comments": [comment.to_dict() for comment in comments]})
+    result = []
+    if comments is None:
+        return jsonify({'message': 'No comments found'}), 404
+
+    for comment in comments:
+        user = User.query.get(comment.user_id)
+        comment_dict = comment.to_dict()
+
+        comment_dict['User'] = {
+            'username': user.username,
+            'user_id': user.id
+        }
+
+        result.append(comment_dict)
+
+    return jsonify({"Comments": result})
 
 # Create a Comment
 @comment_routes.route('/', methods=["POST"])
