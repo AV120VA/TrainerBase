@@ -91,6 +91,19 @@ function ProfileButton() {
           >
             Manage Posts
           </li>
+          <li
+            style={{
+              listStyleType: "none",
+              color: "#f41624",
+              cursor: "pointer",
+            }}
+            onClick={() => {
+              navigate("/my-comments");
+              closeMenu();
+            }}
+          >
+            Manage Comments
+          </li>
           <li style={{ listStyleType: "none" }}>
             <button
               style={{
