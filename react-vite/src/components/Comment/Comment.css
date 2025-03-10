@@ -1,0 +1,41 @@
+.comment-box {
+  width: 92%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.comment-author-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.comment-username-initial-circle {
+  height: 28px;
+  width: 28px;
+  border-radius: 50%;
+  background-color: #f41624;
+  border: none;
+  color: white;
+  font-size: 15px;
+}
+
+.comment-text {
+  color: white;
+}
+
+.comment-content-box {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.comment-content {
+  font-size: 17px;
+  margin-left: 10px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}

@@ -4,6 +4,7 @@ import SignupFormPage from "../components/SignupFormPage";
 import Layout from "./Layout";
 import HomePage from "../components/HomePage/HomePage";
 import UserPosts from "../components/UserPosts/UserPosts";
+import UserComments from "../components/UserComments";
 
 export const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ export const router = createBrowserRouter([
       {
         path: "my-posts",
         element: <UserPosts />,
+      },
+      {
+        path: "my-comments",
+        element: <UserComments />,
       },
     ],
   },
