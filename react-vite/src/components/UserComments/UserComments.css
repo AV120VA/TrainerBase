@@ -27,17 +27,3 @@
   align-items: center;
   gap: 15px;
 }
-
-.create-comment-toggle {
-  background-color: #f41624;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: none;
-  color: white;
-  width: 120px;
-  height: 35px;
-  font-size: 19px;
-  border-radius: 15px;
-  cursor: pointer;
-}

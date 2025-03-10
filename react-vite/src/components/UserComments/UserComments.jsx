@@ -32,7 +32,6 @@ function UserComments() {
         <div className="user-comments-box">
           <div className="user-comments-header-box">
             <h2 className="user-comments-header">My Comments</h2>
-            <button className="create-comment-toggle">+ Comment</button>
           </div>
           <div className="my-comments-box">
             {comments.map((comment) => (
