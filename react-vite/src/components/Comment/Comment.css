@@ -1,7 +1,8 @@
 .comment-box {
-  width: 85%;
+  width: 92%;
   display: flex;
   flex-direction: column;
+  gap: 15px;
 }
 
 .comment-author-info {
@@ -22,4 +23,19 @@
 
 .comment-text {
   color: white;
+}
+
+.comment-content-box {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.comment-content {
+  font-size: 17px;
+  margin-left: 10px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }

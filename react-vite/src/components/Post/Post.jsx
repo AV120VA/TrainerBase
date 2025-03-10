@@ -12,6 +12,7 @@ function Post({ post }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
   const [showMore, setShowMore] = useState(false);
+  const [showComments, setShowComments] = useState(false);
   const moreOptionsRef = useRef(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const postComments = useSelector((state) =>
@@ -102,23 +103,31 @@ function Post({ post }) {
               style={{ borderRadius: "18px" }}
             />
           )}
-          <div
-            onClick={() => alert("Feature coming soon!")}
-            className="post-reactions"
-          >
+          <div className="post-reactions">
             <img
               src="/thumbs-up.png"
               alt="thumbs up"
               className="like-button-image"
+              onClick={() => alert("Feature coming soon!")}
             />
             <img
               src="/chat.png"
               alt="comment"
               className="comment-button-image"
+              onClick={() => setShowComments(!showComments)}
+              style={{
+                filter: showComments ? " grayscale(0%)" : " grayscale(100%)",
+              }}
             />
           </div>
-          <div className="comments-box">
-            {comments &&
+          <div
+            className="comments-box"
+            style={{
+              display: showComments ? "flex" : "none",
+            }}
+          >
+            {showComments &&
+              comments &&
               comments.map((comment) => (
                 <Comment key={comment.id} comment={comment} />
               ))}

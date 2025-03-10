@@ -12,6 +12,9 @@ function Comment({ comment }) {
           <p className="comment-text">{comment.created_at.slice(0, 16)}</p>
         </div>
       </div>
+      <div className="comment-content-box">
+        <p className="comment-text comment-content">{comment.content}</p>
+      </div>
     </div>
   );
 }
