@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import Comment
+from app.models import Comment, User
 from app.models.db import db
 
 comment_routes = Blueprint('comments', __name__)
@@ -9,9 +9,22 @@ comment_routes = Blueprint('comments', __name__)
 @comment_routes.route('/post/<int:post_id>', methods=["GET"])
 def comments(post_id):
     comments = Comment.query.filter(Comment.post_id == post_id)
+    result = []
     if comments is None:
         return jsonify({'message': 'No comments found'}), 404
-    return jsonify({"Comments": [comment.to_dict() for comment in comments]})
+
+    for comment in comments:
+        user = User.query.get(comment.user_id)
+        comment_dict = comment.to_dict()
+
+        comment_dict['User'] = {
+            'username': user.username,
+            'user_id': user.id
+        }
+
+        result.append(comment_dict)
+
+    return jsonify({"Comments": result})
 
 # Get All User Comments
 @comment_routes.route('/current', methods=["GET"])

@@ -3,28 +3,72 @@
 // const headers = {
 //   "Content-Type": "application/json",
 // };
+import { createSelector } from "reselect";
 
 // Action Types
-const LOAD_POST_COMMENTS = "comments/LOAD_COMMENTS";
+const LOAD_POST_COMMENTS = "comments/LOAD_POST_COMMENTS";
 
 // Action Creators
-const loadPostComments = (comments) => {
+const loadPostComments = (postId, comments) => {
   return {
     type: LOAD_POST_COMMENTS,
+    postId,
     comments,
   };
 };
 
 // Thunks
 export const getPostComments = (postId) => async (dispatch) => {
-  const response = "fill this in";
+  const response = await fetch(`/api/comments/post/${postId}`);
+
+  if (response.ok) {
+    const data = await response.json();
+    const comments = data.Comments;
+    dispatch(loadPostComments(postId, comments));
+  } else {
+    return await response.json();
+  }
 };
 
 // Reducer
 
 const initialState = {
+  allComments: {},
   postComments: {},
   userComments: {},
 };
 
-function commentReducer(state = initialState, action) {}
+function commentReducer(state = initialState, action) {
+  switch (action.type) {
+    case LOAD_POST_COMMENTS: {
+      const { postId, comments } = action;
+      const newComments = {};
+      comments.forEach((comment) => {
+        newComments[comment.id] = comment;
+      });
+      return {
+        ...state,
+        postComments: {
+          ...state.postComments,
+          [postId]: newComments,
+        },
+        allComments: {
+          ...state.allComments,
+          ...newComments,
+        },
+      };
+    }
+    default:
+      return state;
+  }
+}
+
+// Selectors
+const selectCommentsState = (state) => state.comments;
+
+export const selectPostComments = createSelector(
+  [selectCommentsState, (state, postId) => postId],
+  (commentsState, postId) => commentsState.postComments[postId] || {}
+);
+
+export default commentReducer;
