@@ -4,6 +4,7 @@ import OpenModalButton from "../OpenModalButton";
 import DeletePost from "../DeletePost/DeletePost";
 import EditPost from "../EditPost";
 import Comment from "../Comment/Comment";
+import CreateComment from "../CreateComment/CreateComment";
 import { getPostComments } from "../../redux/comment";
 import { selectPostComments } from "../../redux/comment";
 import "./Post.css";
@@ -127,6 +128,9 @@ function Post({ post }) {
               display: showComments ? "flex" : "none",
             }}
           >
+            {user && user.id !== post.User.user_id ? (
+              <CreateComment postId={post.id} />
+            ) : null}
             {showComments &&
               comments &&
               comments.map((comment) => (
