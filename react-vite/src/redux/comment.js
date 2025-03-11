@@ -1,13 +1,14 @@
 import { csrfFetch } from "./csrf";
-
-// const headers = {
-//   "Content-Type": "application/json",
-// };
 import { createSelector } from "reselect";
+
+const headers = {
+  "Content-Type": "application/json",
+};
 
 // Action Types
 const LOAD_POST_COMMENTS = "comments/LOAD_POST_COMMENTS";
 const LOAD_USER_COMMENTS = "comments/LOAD_USER_COMMENTS";
+const ADD_COMMENT = "comments/ADD_COMMENT";
 
 // Action Creators
 const loadPostComments = (postId, comments) => {
@@ -22,6 +23,13 @@ const loadUserComments = (comments) => {
   return {
     type: LOAD_USER_COMMENTS,
     comments,
+  };
+};
+
+const addComment = (comment) => {
+  return {
+    type: ADD_COMMENT,
+    comment,
   };
 };
 
@@ -47,6 +55,28 @@ export const getUserComments = () => async (dispatch) => {
     dispatch(loadUserComments(comments));
   } else {
     return await response.json();
+  }
+};
+
+export const createComment = (commentData) => async (dispatch) => {
+  try {
+    const response = await csrfFetch(`/api/comments/`, {
+      method: "POST",
+      headers,
+      body: JSON.stringify(commentData),
+    });
+
+    if (response.ok) {
+      const comment = await response.json();
+      dispatch(addComment(comment));
+      return comment;
+    } else {
+      const error = await response.json();
+      throw new error(error.message);
+    }
+  } catch (e) {
+    console.error(e);
+    return e;
   }
 };
 
@@ -84,6 +114,15 @@ function commentReducer(state = initialState, action) {
         newComments[comment.id] = comment;
       });
       return { ...state, userComments: newComments };
+    }
+    case ADD_COMMENT: {
+      const newState = { ...state };
+      newState.userComments[action.comment.id] = action.comment;
+      newState.postComments[action.comment.post_id] = {
+        ...newState.postComments[action.comment.post_id],
+        [action.comment.id]: action.comment,
+      };
+      return newState;
     }
     default:
       return state;
