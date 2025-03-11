@@ -67,7 +67,14 @@ def new_comment():
     db.session.add(comment)
     db.session.commit()
 
-    return jsonify(comment.to_dict())
+    comment_dict = comment.to_dict()
+    user = User.query.get(comment.user_id)
+    comment_dict['User'] = {
+        'username': user.username,
+        'user_id': user.id
+    }
+
+    return jsonify(comment_dict)
 
 # Edit a Comment
 @comment_routes.route('/<int:comment_id>', methods=["PUT"])
