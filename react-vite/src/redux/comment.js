@@ -9,6 +9,7 @@ const headers = {
 const LOAD_POST_COMMENTS = "comments/LOAD_POST_COMMENTS";
 const LOAD_USER_COMMENTS = "comments/LOAD_USER_COMMENTS";
 const ADD_COMMENT = "comments/ADD_COMMENT";
+const DELETE_COMMENT = "comments/DELETE_COMMENT";
 
 // Action Creators
 const loadPostComments = (postId, comments) => {
@@ -30,6 +31,13 @@ const addComment = (comment) => {
   return {
     type: ADD_COMMENT,
     comment,
+  };
+};
+
+const removeComment = (commentId) => {
+  return {
+    type: DELETE_COMMENT,
+    commentId,
   };
 };
 
@@ -80,6 +88,24 @@ export const createComment = (commentData) => async (dispatch) => {
   }
 };
 
+export const deleteComment = (commentId) => async (dispatch) => {
+  try {
+    const response = await csrfFetch(`/api/comments/${commentId}`, {
+      method: "DELETE",
+    });
+    if (response.ok) {
+      dispatch(removeComment(commentId));
+      return response;
+    } else {
+      const error = await response.json();
+      throw new Error(error.message);
+    }
+  } catch (e) {
+    console.error(e);
+    return e;
+  }
+};
+
 // Reducer
 
 const initialState = {
@@ -122,6 +148,12 @@ function commentReducer(state = initialState, action) {
         ...newState.postComments[action.comment.post_id],
         [action.comment.id]: action.comment,
       };
+      return newState;
+    }
+    case DELETE_COMMENT: {
+      const newState = { ...state };
+      delete newState.postComments[action.commentId];
+      delete newState.userComments[action.commentId];
       return newState;
     }
     default:

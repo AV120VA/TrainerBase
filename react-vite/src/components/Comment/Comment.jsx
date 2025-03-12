@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import OpenModalButton from "../OpenModalButton";
+import DeleteComment from "../DeleteComment/DeleteComment";
 import "./Comment.css";
 
-function Comment({ comment }) {
+function Comment({ comment, postId }) {
   const [showMore, setShowMore] = useState(false);
   const user = useSelector((state) => state.session.user);
   const moreOptionsRef = useRef(null);
@@ -56,6 +57,12 @@ function Comment({ comment }) {
                       <OpenModalButton
                         className={"comment-more-options comment-more-delete"}
                         buttonText="Delete"
+                        modalComponent={
+                          <DeleteComment
+                            postId={postId}
+                            commentId={comment.id}
+                          />
+                        }
                       />
                     </>
                   ) : null}

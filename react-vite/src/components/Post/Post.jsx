@@ -132,7 +132,7 @@ function Post({ post }) {
             {showComments &&
               comments &&
               comments.map((comment) => (
-                <Comment key={comment.id} comment={comment} />
+                <Comment key={comment.id} postId={post.id} comment={comment} />
               ))}
           </div>
         </div>
