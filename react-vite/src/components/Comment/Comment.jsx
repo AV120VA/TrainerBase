@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import OpenModalButton from "../OpenModalButton";
 import "./Comment.css";
@@ -6,6 +6,23 @@ import "./Comment.css";
 function Comment({ comment }) {
   const [showMore, setShowMore] = useState(false);
   const user = useSelector((state) => state.session.user);
+  const moreOptionsRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        moreOptionsRef.current &&
+        !moreOptionsRef.current.contains(event.target)
+      ) {
+        setShowMore(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [moreOptionsRef]);
 
   return (
     <div className="comment-box">
@@ -19,8 +36,8 @@ function Comment({ comment }) {
             <p className="comment-text">{comment.created_at.slice(0, 16)}</p>
           </div>
         </div>
-        <div className="comment-more-box">
-          {user.id === comment.User.user_id ? (
+        <div className="comment-more-box" ref={moreOptionsRef}>
+          {user && user.id === comment.User.user_id ? (
             <>
               <button
                 onClick={() => setShowMore(!showMore)}
@@ -30,7 +47,7 @@ function Comment({ comment }) {
               </button>
               {showMore && (
                 <div className="comment-more-options-box">
-                  {user.id === comment.User.user_id ? (
+                  {user && user.id === comment.User.user_id ? (
                     <>
                       <OpenModalButton
                         className={"comment-more-options comment-more-edit"}
