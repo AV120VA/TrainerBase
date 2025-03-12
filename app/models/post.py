@@ -19,6 +19,7 @@ class Post(db.Model):
 
     tags = relationship('Tag', secondary=add_prefix_for_prod('post_tags'), back_populates='posts')
     image = relationship('PostImage', uselist=False, back_populates='post', cascade='all, delete-orphan')
+    comments = relationship('Comment', back_populates='post', cascade='all, delete-orphan')
 
     def to_dict(self):
         return {
