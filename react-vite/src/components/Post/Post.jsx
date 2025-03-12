@@ -128,9 +128,7 @@ function Post({ post }) {
               display: showComments ? "flex" : "none",
             }}
           >
-            {user && user.id !== post.User.user_id ? (
-              <CreateComment postId={post.id} />
-            ) : null}
+            {user ? <CreateComment postId={post.id} /> : null}
             {showComments &&
               comments &&
               comments.map((comment) => (

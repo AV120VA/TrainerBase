@@ -9,11 +9,12 @@
   display: flex;
   align-items: center;
   gap: 15px;
+  justify-content: space-between;
 }
 
 .comment-username-initial-circle {
-  height: 28px;
-  width: 28px;
+  height: 29px;
+  width: 29px;
   border-radius: 50%;
   background-color: #f41624;
   border: none;
@@ -26,7 +27,7 @@
 }
 
 .comment-content-box {
-  width: 100%;
+  width: 89%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -38,4 +39,58 @@
   word-wrap: break-word;
   overflow-wrap: break-word;
   word-break: break-word;
+}
+
+.comment-header-org-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: fit-content;
+  width: fit-content;
+}
+
+.comment-more-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  position: relative;
+}
+
+.comment-more {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 25px;
+  align-self: flex-end;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+.comment-more-options-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 7px;
+  position: absolute;
+  top: 85%;
+  width: 101px;
+}
+
+.comment-more-options {
+  font-size: 17px;
+  align-self: flex-end;
+  cursor: pointer;
+  border: none;
+  background: none;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.comment-more-delete {
+  color: #f41624;
+}
+
+.comment-more-edit {
+  color: #1e90ff;
 }
