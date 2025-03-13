@@ -10,6 +10,7 @@ const LOAD_POST_COMMENTS = "comments/LOAD_POST_COMMENTS";
 const LOAD_USER_COMMENTS = "comments/LOAD_USER_COMMENTS";
 const ADD_COMMENT = "comments/ADD_COMMENT";
 const DELETE_COMMENT = "comments/DELETE_COMMENT";
+const UPDATE_COMMENT = "comments/UPDATE_COMMENT";
 
 // Action Creators
 const loadPostComments = (postId, comments) => {
@@ -38,6 +39,13 @@ const removeComment = (commentId) => {
   return {
     type: DELETE_COMMENT,
     commentId,
+  };
+};
+
+const editComment = (comment) => {
+  return {
+    type: UPDATE_COMMENT,
+    comment,
   };
 };
 
@@ -80,7 +88,7 @@ export const createComment = (commentData) => async (dispatch) => {
       return comment;
     } else {
       const error = await response.json();
-      throw new error(error.message);
+      throw new Error(error.message);
     }
   } catch (e) {
     console.error(e);
@@ -96,6 +104,28 @@ export const deleteComment = (commentId) => async (dispatch) => {
     if (response.ok) {
       dispatch(removeComment(commentId));
       return response;
+    } else {
+      const error = await response.json();
+      throw new Error(error.message);
+    }
+  } catch (e) {
+    console.error(e);
+    return e;
+  }
+};
+
+export const updateComment = (commentId, commentData) => async (dispatch) => {
+  try {
+    const response = await csrfFetch(`/api/comments/${commentId}`, {
+      method: "PUT",
+      headers,
+      body: JSON.stringify(commentData),
+    });
+
+    if (response.ok) {
+      const updatedComment = await response.json();
+      dispatch(editComment(updatedComment));
+      return updatedComment;
     } else {
       const error = await response.json();
       throw new Error(error.message);
@@ -149,6 +179,25 @@ function commentReducer(state = initialState, action) {
         [action.comment.id]: action.comment,
       };
       return newState;
+    }
+    case UPDATE_COMMENT: {
+      const updatedComment = action.comment;
+      const updatedPostComments = {
+        ...state.postComments,
+        [updatedComment.post_id]: {
+          ...state.postComments[updatedComment.post_id],
+          [updatedComment.id]: updatedComment,
+        },
+      };
+      const updatedUserComments = {
+        ...state.userComments,
+        [updatedComment.id]: updatedComment,
+      };
+      return {
+        ...state,
+        postComments: updatedPostComments,
+        userComments: updatedUserComments,
+      };
     }
     case DELETE_COMMENT: {
       const newState = { ...state };

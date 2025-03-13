@@ -95,7 +95,14 @@ def edit_comment(comment_id):
     comment.content = data['content']
     db.session.commit()
 
-    return jsonify(comment.to_dict())
+    comment_dict = comment.to_dict()
+    user = User.query.get(comment.user_id)
+    comment_dict['User'] = {
+        'username': user.username,
+        'user_id': user.id
+    }
+
+    return jsonify(comment_dict)
 
 # Delete a Comment
 @comment_routes.route('/<int:comment_id>', methods=["DELETE"])

@@ -134,6 +134,9 @@ function Post({ post }) {
               comments.map((comment) => (
                 <Comment key={comment.id} postId={post.id} comment={comment} />
               ))}
+            {showComments && comments && comments.length === 0 ? (
+              <p className="be-first-comment">Be The First To Comment!</p>
+            ) : null}
           </div>
         </div>
       )}

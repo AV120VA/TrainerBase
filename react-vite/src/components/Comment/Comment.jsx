@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import OpenModalButton from "../OpenModalButton";
 import DeleteComment from "../DeleteComment/DeleteComment";
+import EditComment from "../EditComment/EditComment";
 import "./Comment.css";
 
 function Comment({ comment, postId }) {
@@ -36,6 +37,9 @@ function Comment({ comment, postId }) {
             <h3 className="comment-text">{comment.User.username}</h3>
             <p className="comment-text">{comment.created_at.slice(0, 16)}</p>
           </div>
+          {comment.created_at !== comment.updated_at ? (
+            <p className="comment-edited-tag">(Edited)</p>
+          ) : null}
         </div>
         <div className="comment-more-box" ref={moreOptionsRef}>
           {user && user.id === comment.User.user_id ? (
@@ -53,6 +57,9 @@ function Comment({ comment, postId }) {
                       <OpenModalButton
                         className={"comment-more-options comment-more-edit"}
                         buttonText="Edit"
+                        modalComponent={
+                          <EditComment comment={comment} postId={postId} />
+                        }
                       />
                       <OpenModalButton
                         className={"comment-more-options comment-more-delete"}

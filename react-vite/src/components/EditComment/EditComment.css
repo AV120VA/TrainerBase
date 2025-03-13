@@ -1,0 +1,64 @@
+.edit-comment-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 350px;
+  height: fit-content;
+  gap: 20px;
+  background-color: #262626;
+  padding: 30px;
+}
+
+.edit-comment-header {
+  font-weight: 200;
+  font-size: 30px;
+  color: #1e90ff;
+}
+
+.edit-comment-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 85%;
+  gap: 20px;
+}
+
+.edit-comment-label {
+  color: white;
+  font-size: 18px;
+}
+
+.edit-comment-input-box {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.edit-comment-content-input {
+  background-color: #202020;
+  color: white;
+  border: #757575 1px solid;
+  resize: none;
+  padding: 15px 0px 25px 15px;
+  font-size: 16px;
+  border-radius: 15px;
+  height: 80px;
+}
+
+.edit-comment-content-input:focus {
+  outline: 2px solid #1e90ff;
+  box-shadow: 0px 4px 10px #1e90ff;
+}
+
+.edit-comment-submit-button {
+  background-color: #1e90ff;
+  border: none;
+  height: 40px;
+  width: 80px;
+  color: white;
+  font-size: 18px;
+  border-radius: 15px;
+}
