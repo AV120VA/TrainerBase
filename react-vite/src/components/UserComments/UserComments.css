@@ -27,3 +27,9 @@
   align-items: center;
   gap: 35px;
 }
+
+.no-comments-yet-message {
+  font-weight: 200;
+  color: white;
+  font-size: 22px;
+}
