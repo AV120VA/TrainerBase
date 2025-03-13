@@ -37,6 +37,9 @@ function Comment({ comment, postId }) {
             <h3 className="comment-text">{comment.User.username}</h3>
             <p className="comment-text">{comment.created_at.slice(0, 16)}</p>
           </div>
+          {comment.created_at !== comment.updated_at ? (
+            <p className="comment-edited-tag">(Edited)</p>
+          ) : null}
         </div>
         <div className="comment-more-box" ref={moreOptionsRef}>
           {user && user.id === comment.User.user_id ? (
