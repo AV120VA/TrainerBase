@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import OpenModalButton from "../OpenModalButton";
 import DeleteComment from "../DeleteComment/DeleteComment";
+import EditComment from "../EditComment/EditComment";
 import "./Comment.css";
 
 function Comment({ comment, postId }) {
@@ -53,6 +54,9 @@ function Comment({ comment, postId }) {
                       <OpenModalButton
                         className={"comment-more-options comment-more-edit"}
                         buttonText="Edit"
+                        modalComponent={
+                          <EditComment comment={comment} postId={postId} />
+                        }
                       />
                       <OpenModalButton
                         className={"comment-more-options comment-more-delete"}

@@ -10,6 +10,7 @@ const LOAD_POST_COMMENTS = "comments/LOAD_POST_COMMENTS";
 const LOAD_USER_COMMENTS = "comments/LOAD_USER_COMMENTS";
 const ADD_COMMENT = "comments/ADD_COMMENT";
 const DELETE_COMMENT = "comments/DELETE_COMMENT";
+const UPDATE_COMMENT = "comments/UPDATE_COMMENT";
 
 // Action Creators
 const loadPostComments = (postId, comments) => {
@@ -38,6 +39,13 @@ const removeComment = (commentId) => {
   return {
     type: DELETE_COMMENT,
     commentId,
+  };
+};
+
+const editComment = (comment) => {
+  return {
+    type: UPDATE_COMMENT,
+    comment,
   };
 };
 
@@ -106,6 +114,23 @@ export const deleteComment = (commentId) => async (dispatch) => {
   }
 };
 
+export const updateComment = (commentId, commentData) => async (dispatch) => {
+  try {
+    const response = await csrfFetch(`/api/comments/${commentId}`, {
+      method: "PUT",
+      headers,
+      body: JSON.stringify(commentData),
+    });
+
+    const updatedComment = await response.json();
+    dispatch(editComment(updatedComment));
+    return updatedComment;
+  } catch (e) {
+    console.error(e);
+    return e;
+  }
+};
+
 // Reducer
 
 const initialState = {
@@ -149,6 +174,29 @@ function commentReducer(state = initialState, action) {
         [action.comment.id]: action.comment,
       };
       return newState;
+    }
+    case UPDATE_COMMENT: {
+      const updatedComment = action.comment;
+      const currentComment = state.postComments[updatedComment.post_id];
+      const updatedPostComments = {
+        ...state.postComments,
+        [updatedComment.post_id]: {
+          ...currentComment,
+          [updatedComment.id]: updatedComment,
+        },
+      };
+      const updatedUserComments = {
+        ...state.userComments,
+        [updatedComment.id]: {
+          ...currentComment,
+          ...updatedComment,
+        },
+      };
+      return {
+        ...state,
+        postComments: updatedPostComments,
+        userComments: updatedUserComments,
+      };
     }
     case DELETE_COMMENT: {
       const newState = { ...state };
