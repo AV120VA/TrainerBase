@@ -88,7 +88,7 @@ export const createComment = (commentData) => async (dispatch) => {
       return comment;
     } else {
       const error = await response.json();
-      throw new error(error.message);
+      throw new Error(error.message);
     }
   } catch (e) {
     console.error(e);
@@ -122,9 +122,14 @@ export const updateComment = (commentId, commentData) => async (dispatch) => {
       body: JSON.stringify(commentData),
     });
 
-    const updatedComment = await response.json();
-    dispatch(editComment(updatedComment));
-    return updatedComment;
+    if (response.ok) {
+      const updatedComment = await response.json();
+      dispatch(editComment(updatedComment));
+      return updatedComment;
+    } else {
+      const error = await response.json();
+      throw new Error(error.message);
+    }
   } catch (e) {
     console.error(e);
     return e;
@@ -177,20 +182,16 @@ function commentReducer(state = initialState, action) {
     }
     case UPDATE_COMMENT: {
       const updatedComment = action.comment;
-      const currentComment = state.postComments[updatedComment.post_id];
       const updatedPostComments = {
         ...state.postComments,
         [updatedComment.post_id]: {
-          ...currentComment,
+          ...state.postComments[updatedComment.post_id],
           [updatedComment.id]: updatedComment,
         },
       };
       const updatedUserComments = {
         ...state.userComments,
-        [updatedComment.id]: {
-          ...currentComment,
-          ...updatedComment,
-        },
+        [updatedComment.id]: updatedComment,
       };
       return {
         ...state,
