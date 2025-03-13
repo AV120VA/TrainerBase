@@ -93,7 +93,9 @@ function Post({ post }) {
               </div>
             </div>
           </div>
-          <h3 className="post-text post-title">{post.title}</h3>
+          <div className="post-title-box">
+            <h3 className="post-text post-title">{post.title}</h3>
+          </div>
           <div className="post-content-box">
             <p className="post-text post-content">{post.content}</p>
           </div>

@@ -40,6 +40,16 @@
 
 .post-title {
   font-size: 20px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.post-title-box {
+  display: flex;
+  width: 70%;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .post-content {

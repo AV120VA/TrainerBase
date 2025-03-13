@@ -22,7 +22,7 @@ function UserPosts() {
         Object.values(userPosts).sort((a, b) => {
           if (!a.created_at) return 1;
           if (!b.created_at) return -1;
-          return a.created_at - b.created_at;
+          return new Date(b.created_at) - new Date(a.created_at);
         })
       );
     }
