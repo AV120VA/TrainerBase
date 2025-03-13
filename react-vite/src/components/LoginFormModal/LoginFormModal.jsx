@@ -72,12 +72,14 @@ function LoginFormModal() {
           />
           {errors.password && <p>{errors.password}</p>}
         </div>
-        <button className="login-button" type="submit">
-          Log In
-        </button>
-        <button type="button" onClick={loginDemoUser} className="login-demo">
-          Demo User
-        </button>
+        <div className="login-button-box">
+          <button type="button" onClick={loginDemoUser} className="login-demo">
+            Demo User
+          </button>
+          <button className="login-button" type="submit">
+            Log In
+          </button>
+        </div>
       </form>
     </div>
   );

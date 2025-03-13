@@ -37,6 +37,9 @@ function UserComments() {
             {comments.map((comment) => (
               <Comment key={comment.id} comment={comment} />
             ))}
+            {comments.length === 0 ? (
+              <h3 className="no-comments-yet-message">No Comments Yet!</h3>
+            ) : null}
           </div>
         </div>
       )}

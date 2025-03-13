@@ -33,7 +33,7 @@
 .login-button {
   font-size: 15px;
   padding: 8px;
-  width: 70px;
+  width: 100px;
   border: none;
   color: white;
   background-color: #f41723;
@@ -61,6 +61,17 @@
   color: white;
   border: #757575 1px solid;
   padding: 8px;
+  padding-left: 15px;
   font-size: 16px;
   border-radius: 15px;
+}
+
+.login-input:focus {
+  outline: 2px solid #f41723;
+  box-shadow: 0px 4px 10px #f41723;
+}
+
+.login-button-box {
+  display: flex;
+  gap: 12px;
 }
