@@ -20,7 +20,7 @@ function UserComments() {
         Object.values(userComments).sort((a, b) => {
           if (!a.created_at) return 1;
           if (!b.created_at) return -1;
-          return new Date(a.created_at) - new Date(b.created_at);
+          return new Date(b.created_at) - new Date(a.created_at);
         })
       );
     }
