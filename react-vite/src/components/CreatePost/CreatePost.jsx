@@ -14,12 +14,8 @@ function CreatePost() {
   });
 
   const validateUrl = (str) => {
-    try {
-      new URL(str);
-      return true;
-    } catch (e) {
-      return false;
-    }
+    const urlRegex = /\.(png|jpg|jpeg)$/i;
+    return urlRegex.test(str);
   };
 
   const validateForm = () => {
@@ -118,7 +114,9 @@ function CreatePost() {
             </p>
           ) : null}
           {showErrors && imgUrl && !validateUrl(imgUrl) ? (
-            <p className="post-error-message">Please provide a valid URL</p>
+            <p className="post-error-message">
+              URL must end in .png .jpg or .jpeg
+            </p>
           ) : null}
         </div>
         <button
