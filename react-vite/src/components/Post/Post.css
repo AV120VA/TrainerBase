@@ -157,3 +157,14 @@
 .be-first-comment {
   color: white;
 }
+.like-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.like-count {
+  color: #ff6174;
+  font-size: 22px;
+}
