@@ -19,7 +19,9 @@ function Post({ post }) {
   const postComments = useSelector((state) =>
     selectPostComments(state, post.id)
   );
-  const comments = Object.values(postComments);
+  const comments = Object.values(postComments).sort((a, b) => {
+    return new Date(b.created_at) - new Date(a.created_at);
+  });
 
   useEffect(() => {
     dispatch(getPostComments(post.id)).then(() => setIsLoaded(true));
