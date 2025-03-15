@@ -72,7 +72,12 @@ function Post({ post }) {
                             <OpenModalButton
                               className={"post-more-options post-more-edit"}
                               buttonText="Edit"
-                              modalComponent={<EditPost post={post} />}
+                              modalComponent={
+                                <EditPost
+                                  postImg={post.PostImage}
+                                  post={post}
+                                />
+                              }
                             />
                             <OpenModalButton
                               className={"post-more-options post-more-delete"}

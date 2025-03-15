@@ -97,6 +97,32 @@ def add_image(post_id):
 
     return jsonify(image.to_dict())
 
+# Update an Image for a Post
+@post_routes.route('/<int:post_id>/images', methods=["PUT"])
+@login_required
+def update_image(post_id):
+    post = Post.query.get(post_id)
+    if not post:
+        return jsonify({"message": "Post not found"}), 404
+
+    if post.user_id != current_user.id:
+        return jsonify({"message": "You can't update images to a post that isn't yours"}), 403
+
+    data = request.json
+    if not data or not data.get('url'):
+        return jsonify({"message": "URL is required"}), 400
+
+    image = PostImage.query.filter_by(post_id=post_id).first()
+    if not image:
+        image = PostImage(post_id=post_id, image_url=data['url'])
+        db.session.add(image)
+    else:
+        image.image_url = data['url']
+
+    db.session.commit()
+
+    return jsonify(image.to_dict())
+
 # Edit a Post
 @post_routes.route('/<int:post_id>', methods=["PUT"])
 @login_required
@@ -143,3 +169,25 @@ def delete_post(post_id):
     db.session.commit()
 
     return jsonify({"message": "Post deleted"})
+
+# Delete an Image from a Post
+@post_routes.route('/<int:post_id>/images', methods=["DELETE"])
+@login_required
+def delete_post_image(post_id):
+    post = Post.query.get(post_id)
+
+    if post is None:
+        return jsonify({"message": "Post not found"}), 404
+
+    if post.user_id != current_user.id:
+        return jsonify({"message": "Unauthorized"}), 401
+
+    image = PostImage.query.filter_by(post_id=post_id).first()
+
+    if image is None:
+        return jsonify({"message": "Image not found"}), 404
+
+    db.session.delete(image)
+    db.session.commit()
+
+    return jsonify({"message": "Image deleted"})

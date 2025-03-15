@@ -4,19 +4,29 @@ import { useDispatch } from "react-redux";
 import { updatePost, getPosts, getUserPosts } from "../../redux/post";
 import "./EditPost.css";
 
-function EditPost({ post }) {
+function EditPost({ post, postImg }) {
   const dispatch = useDispatch();
   const { setModalContent } = useModal();
   const [formData, setFormData] = useState({
     title: post.title,
     content: post.content,
   });
+  const [imgUrl, setImgUrl] = useState(postImg);
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const handleUrlChange = (e) => {
+    setImgUrl(e.target.value);
+  };
+
+  const validateUrl = (str) => {
+    const urlRegex = /\.(png|jpg|jpeg)$/i;
+    return urlRegex.test(str);
   };
 
   const handleSubmit = async (e) => {
@@ -60,6 +70,20 @@ function EditPost({ post }) {
           {formData.content.length > 200 ? (
             <p className="edit-post-error">
               Content cannot exceed 200 characters
+            </p>
+          ) : null}
+        </div>
+        <div className="edit-post-input-box">
+          <p className="edit-post-label">Image URL:</p>
+          <textarea
+            className="edit-post-title-ta edit-post-ta-hl"
+            value={imgUrl}
+            onChange={handleUrlChange}
+            name="imgUrl"
+          />
+          {imgUrl && !validateUrl(imgUrl) ? (
+            <p className="edit-post-error">
+              URL must end in .png .jpg or .jpeg
             </p>
           ) : null}
         </div>
