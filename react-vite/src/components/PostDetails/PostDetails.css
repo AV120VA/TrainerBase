@@ -1,0 +1,21 @@
+.post-details-box {
+  margin-top: 125px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 50px;
+}
+
+.post-details-comments-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+}
+
+.pd-comment-button-image {
+  height: 28px;
+  cursor: pointer;
+}

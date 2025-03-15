@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { useModal } from "../../context/Modal";
 import { useDispatch } from "react-redux";
-import { updatePost, getPosts, getUserPosts } from "../../redux/post";
+import {
+  updatePost,
+  getPosts,
+  getUserPosts,
+  getPostById,
+} from "../../redux/post";
 import "./EditPost.css";
 
 function EditPost({ post, postImg }) {
@@ -12,7 +17,7 @@ function EditPost({ post, postImg }) {
     content: post.content,
   });
   const [imgUrl, setImgUrl] = useState(postImg);
-  const [originalImgUrl, setOriginalImgUrl] = useState(postImg);
+  const [originalImgUrl] = useState(postImg);
   const [deleteUrl, setDeleteUrl] = useState(false);
 
   const handleChange = (e) => {
@@ -53,6 +58,7 @@ function EditPost({ post, postImg }) {
 
       await dispatch(getPosts());
       await dispatch(getUserPosts());
+      await dispatch(getPostById(post.id));
 
       setModalContent(null);
     } catch (e) {

@@ -28,6 +28,24 @@ def posts():
 
     return jsonify({"Posts": result})
 
+# Get a single post
+@post_routes.route('/<int:post_id>', methods=["GET"])
+def single_post(post_id):
+    post = Post.query.get(post_id)
+    user = User.query.get(post.user_id)
+    post_image = PostImage.query.filter_by(post_id=post.id).first()
+    image_url = post_image.image_url if post_image else None
+
+    post_dict = post.to_dict()
+    post_dict['User'] = {
+        'username': user.username,
+        'user_id': user.id,
+    }
+    if image_url is not None:
+        post_dict['PostImage'] = image_url
+
+    return jsonify(post_dict)
+
 
 # Get all of a user's posts
 @post_routes.route('/current', methods=["GET"])
