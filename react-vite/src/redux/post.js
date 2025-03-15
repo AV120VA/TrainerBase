@@ -6,6 +6,7 @@ const headers = {
 
 //Action Types
 const LOAD_POSTS = "posts/LOAD_POSTS";
+const LOAD_POST_BY_ID = "posts/LOAD_POST_BY_ID";
 const LOAD_USER_POSTS = "posts/LOAD_USER_POSTS";
 const ADD_POST = "posts/ADD_POST";
 const DELETE_POST = "posts/DELETE_POST";
@@ -16,6 +17,13 @@ const loadPost = (posts) => {
   return {
     type: LOAD_POSTS,
     posts,
+  };
+};
+
+const loadPostById = (post) => {
+  return {
+    type: LOAD_POST_BY_ID,
+    post,
   };
 };
 
@@ -57,6 +65,19 @@ export const getPosts = () => async (dispatch) => {
     dispatch(loadPost(posts));
   } else {
     return await response.json();
+  }
+};
+
+export const getPostById = (postId) => async (dispatch) => {
+  const response = await fetch(`/api/posts/${postId}`);
+
+  if (response.ok) {
+    const post = await response.json();
+    dispatch(loadPostById(post));
+    return post;
+  } else {
+    const error = await response.json();
+    throw new Error(error.message);
   }
 };
 
@@ -133,6 +154,7 @@ export const deletePost = (postId) => async (dispatch) => {
 const initialState = {
   allPosts: {},
   userPosts: {},
+  postById: {},
 };
 
 function postReducer(state = initialState, action) {
@@ -143,6 +165,9 @@ function postReducer(state = initialState, action) {
         allPosts[post.id] = post;
       });
       return { ...state, allPosts };
+    }
+    case LOAD_POST_BY_ID: {
+      return { ...state, postById: action.post };
     }
     case LOAD_USER_POSTS: {
       const userPosts = {};

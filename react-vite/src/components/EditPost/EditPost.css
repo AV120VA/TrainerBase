@@ -76,3 +76,45 @@
   color: red;
   font-size: 15px;
 }
+
+.delete-url-box {
+  display: flex;
+  gap: 10px;
+  margin-top: 5px;
+  margin-left: 5px;
+}
+
+.delete-url-checkbox {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 1px solid white;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+  background-color: #202020;
+  position: relative;
+}
+
+.delete-url-checkbox:checked {
+  background-color: #1e90ff;
+  border: none;
+}
+
+.delete-url-checkbox:checked::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  background-color: #1e90ff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.delete-url-label {
+  color: white;
+  font-size: 15px;
+}
