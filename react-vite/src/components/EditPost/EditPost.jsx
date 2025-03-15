@@ -12,6 +12,8 @@ function EditPost({ post, postImg }) {
     content: post.content,
   });
   const [imgUrl, setImgUrl] = useState(postImg);
+  const [originalImgUrl, setOriginalImgUrl] = useState(postImg);
+  const [deleteUrl, setDeleteUrl] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -34,8 +36,24 @@ function EditPost({ post, postImg }) {
 
     try {
       await dispatch(updatePost(post.id, { ...formData, id: post.id }));
+
+      if (originalImgUrl && deleteUrl) {
+        await fetch(`/api/posts/${post.id}/images`, {
+          method: "DELETE",
+        });
+      } else if (imgUrl !== originalImgUrl) {
+        await fetch(`/api/posts/${post.id}/images`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ url: imgUrl }),
+        });
+      }
+
       await dispatch(getPosts());
       await dispatch(getUserPosts());
+
       setModalContent(null);
     } catch (e) {
       console.error(e);
@@ -81,6 +99,18 @@ function EditPost({ post, postImg }) {
             onChange={handleUrlChange}
             name="imgUrl"
           />
+          {originalImgUrl && (
+            <div className="delete-url-box">
+              <input
+                type="checkbox"
+                id="delete-url"
+                name="delete-url"
+                className="delete-url-checkbox"
+                onClick={() => setDeleteUrl(!deleteUrl)}
+              />
+              <p className="delete-url-label">Delete Image</p>
+            </div>
+          )}
           {imgUrl && !validateUrl(imgUrl) ? (
             <p className="edit-post-error">
               URL must end in .png .jpg or .jpeg
