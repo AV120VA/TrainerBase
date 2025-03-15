@@ -114,15 +114,29 @@ function Post({ post }) {
               className="like-button-image"
               onClick={() => alert("Feature coming soon!")}
             />
-            <img
-              src="/chat.png"
-              alt="comment"
-              className="comment-button-image"
-              onClick={() => setShowComments(!showComments)}
-              style={{
-                filter: showComments ? " grayscale(0%)" : " grayscale(100%)",
-              }}
-            />
+            <div className="like-box">
+              {comments && (
+                <p
+                  style={{
+                    filter: showComments
+                      ? " grayscale(0%)"
+                      : " grayscale(100%)",
+                  }}
+                  className="like-count"
+                >
+                  {comments.length}
+                </p>
+              )}
+              <img
+                src="/chat.png"
+                alt="comment"
+                className="comment-button-image"
+                onClick={() => setShowComments(!showComments)}
+                style={{
+                  filter: showComments ? " grayscale(0%)" : " grayscale(100%)",
+                }}
+              />
+            </div>
           </div>
           <div
             className="comments-box"
