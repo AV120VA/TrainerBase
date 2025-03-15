@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton";
 import DeletePost from "../DeletePost/DeletePost";
 import EditPost from "../EditPost";
@@ -11,6 +12,7 @@ import "./Post.css";
 
 function Post({ post }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const user = useSelector((state) => state.session.user);
   const [showMore, setShowMore] = useState(false);
   const [showComments, setShowComments] = useState(false);
@@ -48,7 +50,13 @@ function Post({ post }) {
       {isLoaded && (
         <div className="post-container">
           <div className="post-header-box">
-            <div className="post-author-info">
+            <div
+              onClick={() => {
+                navigate(`/posts/${post.id}`);
+              }}
+              style={{ cursor: "pointer" }}
+              className="post-author-info"
+            >
               <button disabled={true} className="username-initial-circle">
                 {post.User.username.slice(0, 1).toUpperCase()}
               </button>
@@ -100,18 +108,33 @@ function Post({ post }) {
               </div>
             </div>
           </div>
-          <div className="post-title-box">
+          <div
+            onClick={() => {
+              navigate(`/posts/${post.id}`);
+            }}
+            style={{ cursor: "pointer" }}
+            className="post-title-box"
+          >
             <h3 className="post-text post-title">{post.title}</h3>
           </div>
-          <div className="post-content-box">
+          <div
+            onClick={() => {
+              navigate(`/posts/${post.id}`);
+            }}
+            style={{ cursor: "pointer" }}
+            className="post-content-box"
+          >
             <p className="post-text post-content">{post.content}</p>
           </div>
           {post.PostImage && (
             <img
               src={post.PostImage}
               alt="post"
-              style={{ borderRadius: "18px" }}
+              style={{ borderRadius: "18px", cursor: "pointer" }}
               className="post-image"
+              onClick={() => {
+                navigate(`/posts/${post.id}`);
+              }}
             />
           )}
           <div className="post-reactions">
