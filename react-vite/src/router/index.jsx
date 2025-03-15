@@ -5,6 +5,7 @@ import Layout from "./Layout";
 import HomePage from "../components/HomePage/HomePage";
 import UserPosts from "../components/UserPosts/UserPosts";
 import UserComments from "../components/UserComments";
+import PostDetails from "../components/PostDetails/PostDetails";
 
 export const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ export const router = createBrowserRouter([
       {
         path: "my-comments",
         element: <UserComments />,
+      },
+      {
+        path: "posts/:postId",
+        element: <PostDetails />,
       },
     ],
   },
