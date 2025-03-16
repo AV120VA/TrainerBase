@@ -13,6 +13,11 @@ function SignupFormModal() {
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
+  function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -38,6 +43,13 @@ function SignupFormModal() {
     }
   };
 
+  const isFormInvalid =
+    !isValidEmail(email) ||
+    !email ||
+    !username ||
+    !password ||
+    !confirmPassword;
+
   return (
     <div className="signup-modal-container">
       <h1 className="signup-header">Sign Up</h1>
@@ -52,7 +64,10 @@ function SignupFormModal() {
             required
             className="signup-input"
           />
-          {errors.email && <p>{errors.email}</p>}
+          {errors.email && <p className="signup-error-text">{errors.email}</p>}
+          {!isValidEmail(email) && email && (
+            <p className="signup-error-text">Please provide a valid email</p>
+          )}
         </div>
 
         <div className="signup-input-container">
@@ -65,7 +80,9 @@ function SignupFormModal() {
             className="signup-input"
           />
 
-          {errors.username && <p>{errors.username}</p>}
+          {errors.username && (
+            <p className="signup-error-text">{errors.username}</p>
+          )}
         </div>
 
         <div className="signup-input-container">
@@ -77,7 +94,9 @@ function SignupFormModal() {
             required
             className="signup-input"
           />
-          {errors.password && <p>{errors.password}</p>}
+          {errors.password && (
+            <p className="signup-error-text">{errors.password}</p>
+          )}
         </div>
 
         <div className="signup-input-container">
@@ -89,10 +108,20 @@ function SignupFormModal() {
             required
             className="signup-input"
           />
-          {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+          {errors.confirmPassword && (
+            <p className="signup-error-text">{errors.confirmPassword}</p>
+          )}
         </div>
 
-        <button className="signup-button" type="submit">
+        <button
+          disabled={isFormInvalid}
+          style={{
+            backgroundColor: isFormInvalid ? "gray" : null,
+            cursor: isFormInvalid ? "not-allowed" : "pointer",
+          }}
+          className="signup-button"
+          type="submit"
+        >
           Sign Up
         </button>
       </form>
