@@ -129,7 +129,7 @@ function Post({ post }) {
           {post.PostImage && (
             <img
               src={post.PostImage}
-              alt="post"
+              alt="404 Post Image Not Found"
               style={{ borderRadius: "18px", cursor: "pointer" }}
               className="post-image"
               onClick={() => {

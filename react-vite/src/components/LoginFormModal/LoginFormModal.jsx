@@ -11,6 +11,11 @@ function LoginFormModal() {
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
+  function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -58,7 +63,10 @@ function LoginFormModal() {
             required
             className="login-input"
           />
-          {errors.email && <p>{errors.email}</p>}
+          {errors.email && <p className="signup-error-text">{errors.email}</p>}
+          {!isValidEmail(email) && email && (
+            <p className="signup-error-text">Please provide a valid email</p>
+          )}
         </div>
 
         <div className="login-input-container">
@@ -70,7 +78,9 @@ function LoginFormModal() {
             required
             className="login-input"
           />
-          {errors.password && <p>{errors.password}</p>}
+          {errors.password && (
+            <p className="signup-error-text">{errors.password}</p>
+          )}
         </div>
         <div className="login-button-box">
           <button type="button" onClick={loginDemoUser} className="login-demo">

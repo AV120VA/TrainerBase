@@ -14,6 +14,9 @@
 
 .post-image {
   margin-bottom: 10px;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .post-author-info {
