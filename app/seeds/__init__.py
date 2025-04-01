@@ -3,6 +3,7 @@ from .users import seed_users, undo_users
 from .posts import seed_posts, undo_posts
 from .comments import seed_comments, undo_comments
 from .post_images import seed_post_images, undo_post_images
+from .saveforlaters import seed_saveforlater, undo_saveforlater
 from app.models.db import db, environment, SCHEMA
 
 # Creates a seed group to hold our commands
@@ -22,10 +23,12 @@ def seed():
         undo_posts()
         undo_comments()
         undo_post_images()
+        undo_saveforlater()
     seed_users()
     seed_posts()
     seed_comments()
     seed_post_images()
+    seed_saveforlater()
     # Add other seed functions here
 
 
@@ -36,4 +39,5 @@ def undo():
     undo_posts()
     undo_comments()
     undo_post_images()
+    undo_saveforlater()
     # Add other undo functions here

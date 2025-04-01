@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import Post, PostImage, User
+from app.models import Post, PostImage, User, SaveForLater
 from app.models.db import db
 
 post_routes = Blueprint('posts', __name__)
@@ -70,6 +70,70 @@ def user_posts():
         result.append(post_dict)
 
     return jsonify({"Posts": result})
+
+# Get all saved posts
+@post_routes.route('/saved', methods=["GET"])
+@login_required
+def saved_posts():
+    saved_posts = SaveForLater.query.filter(SaveForLater.user_id == current_user.id).all()
+    result = []
+    for saved_post in saved_posts:
+        post = Post.query.get(saved_post.post_id)
+        user = User.query.get(post.user_id)
+        post_image = PostImage.query.filter_by(post_id=post.id).first()
+        image_url = post_image.image_url if post_image else None
+
+        post_dict = post.to_dict()
+        post_dict['User'] = {
+            'username': user.username,
+            'user_id': user.id,
+        }
+        if image_url is not None:
+            post_dict['PostImage'] = image_url
+
+        result.append(post_dict)
+    return jsonify({"Posts": result})
+
+# Save a post for later
+@post_routes.route('/<int:post_id>/save', methods=["POST"])
+@login_required
+def save_post(post_id):
+    post = Post.query.get(post_id)
+
+    if not post:
+        return jsonify({"message": "Post not found"}), 404
+
+    saved_post = SaveForLater.query.filter_by(user_id=current_user.id, post_id=post_id).first()
+
+    if saved_post:
+        return jsonify({"message": "Post already saved"}), 400
+
+    new_save = SaveForLater(user_id=current_user.id, post_id=post_id)
+    db.session.add(new_save)
+    db.session.commit()
+
+    return jsonify({"message": "Post saved successfully"})
+
+# Unsave a post
+@post_routes.route('/<int:post_id>/unsave', methods=["DELETE"])
+@login_required
+def unsave_post(post_id):
+    post = Post.query.get(post_id)
+
+    if not post:
+        return jsonify({"message": "Post not found"}), 404
+
+    saved_post = SaveForLater.query.filter_by(user_id=current_user.id, post_id=post_id).first()
+
+    if not saved_post:
+        return jsonify({"message": "Post not saved"}), 400
+
+    db.session.delete(saved_post)
+    db.session.commit()
+
+    return jsonify({"message": "Post unsaved successfully"})
+
+
 
 # Create a Post
 @post_routes.route('/', methods=["POST"])
