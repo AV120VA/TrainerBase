@@ -11,6 +11,7 @@ const LOAD_USER_POSTS = "posts/LOAD_USER_POSTS";
 const ADD_POST = "posts/ADD_POST";
 const DELETE_POST = "posts/DELETE_POST";
 const UPDATE_POST = "posts/UPDATE_POST";
+const LOAD_SAVED_POSTS = "posts/LOAD_SAVED_POSTS";
 
 // Action Creators
 const loadPost = (posts) => {
@@ -30,6 +31,13 @@ const loadPostById = (post) => {
 const loadUserPosts = (posts) => {
   return {
     type: LOAD_USER_POSTS,
+    posts,
+  };
+};
+
+const loadSavedPosts = (posts) => {
+  return {
+    type: LOAD_SAVED_POSTS,
     posts,
   };
 };
@@ -63,6 +71,18 @@ export const getPosts = () => async (dispatch) => {
     const data = await response.json();
     const posts = data.Posts;
     dispatch(loadPost(posts));
+  } else {
+    return await response.json();
+  }
+};
+
+export const getSavedPosts = () => async (dispatch) => {
+  const response = await csrfFetch("/api/posts/saved");
+
+  if (response.ok) {
+    const data = await response.json();
+    const posts = data.Posts;
+    dispatch(loadSavedPosts(posts));
   } else {
     return await response.json();
   }
@@ -155,6 +175,7 @@ const initialState = {
   allPosts: {},
   userPosts: {},
   postById: {},
+  savedPosts: {},
 };
 
 function postReducer(state = initialState, action) {
@@ -165,6 +186,13 @@ function postReducer(state = initialState, action) {
         allPosts[post.id] = post;
       });
       return { ...state, allPosts };
+    }
+    case LOAD_SAVED_POSTS: {
+      const savedPosts = {};
+      action.posts.forEach((post) => {
+        savedPosts[post.id] = post;
+      });
+      return { ...state, savedPosts };
     }
     case LOAD_POST_BY_ID: {
       return { ...state, postById: action.post };
