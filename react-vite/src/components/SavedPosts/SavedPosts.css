@@ -1,0 +1,15 @@
+.saved-posts-page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: fit-content;
+  align-items: center;
+  margin-top: 135px;
+  gap: 18px;
+}
+
+.saved-posts-header {
+  color: white;
+  font-size: 40px;
+  font-weight: 200;
+}

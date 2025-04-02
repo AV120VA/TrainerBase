@@ -85,6 +85,19 @@ function ProfileButton() {
               cursor: "pointer",
             }}
             onClick={() => {
+              navigate("/saved-posts");
+              closeMenu();
+            }}
+          >
+            Saved Posts
+          </li>
+          <li
+            style={{
+              listStyleType: "none",
+              color: "#f41624",
+              cursor: "pointer",
+            }}
+            onClick={() => {
               navigate("/my-posts");
               closeMenu();
             }}
