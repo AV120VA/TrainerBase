@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton";
 import DeletePost from "../DeletePost/DeletePost";
 import EditPost from "../EditPost";
@@ -8,11 +8,14 @@ import Comment from "../Comment/Comment";
 import CreateComment from "../CreateComment/CreateComment";
 import { getPostComments } from "../../redux/comment";
 import { selectPostComments } from "../../redux/comment";
+import { csrfFetch } from "../../redux/csrf";
+import { getPosts, getSavedPosts, getPostById } from "../../redux/post";
 import "./Post.css";
 
 function Post({ post }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const user = useSelector((state) => state.session.user);
   const [showMore, setShowMore] = useState(false);
   const [showComments, setShowComments] = useState(false);
@@ -25,6 +28,44 @@ function Post({ post }) {
   const comments = Object.values(postComments).sort((a, b) => {
     return new Date(b.created_at) - new Date(a.created_at);
   });
+
+  const handlePostUnsave = async (postId) => {
+    try {
+      const response = await csrfFetch(`/api/posts/${postId}/unsave`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        if (location.pathname.endsWith("/saved-posts")) {
+          await dispatch(getSavedPosts());
+        } else {
+          await dispatch(getPosts());
+        }
+        setIsSaved(false);
+      } else {
+        console.error("Failed to unsave post");
+      }
+    } catch (error) {
+      console.error("Error unsaving post:", error);
+    }
+  };
+
+  const handlePostSave = async (postId) => {
+    try {
+      const response = await csrfFetch(`/api/posts/${postId}/save`, {
+        method: "POST",
+      });
+
+      if (response.ok) {
+        await dispatch(getPosts());
+        setIsSaved(true);
+      } else {
+        console.error("Failed to save post");
+      }
+    } catch (error) {
+      console.error("Error saving post:", error);
+    }
+  };
 
   useEffect(() => {
     if (user) {
@@ -115,11 +156,17 @@ function Post({ post }) {
                             />
                           </>
                         ) : isSaved ? (
-                          <button className="post-more-options post-more-save">
+                          <button
+                            onClick={() => handlePostUnsave(post.id)}
+                            className="post-more-options post-more-save"
+                          >
                             Unsave
                           </button>
                         ) : (
-                          <button className="post-more-options post-more-save">
+                          <button
+                            onClick={() => handlePostSave(post.id)}
+                            className="post-more-options post-more-save"
+                          >
                             Save for Later
                           </button>
                         )}
