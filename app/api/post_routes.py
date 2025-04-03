@@ -94,6 +94,20 @@ def saved_posts():
         result.append(post_dict)
     return jsonify({"Posts": result})
 
+# Check if a post is saved
+@post_routes.route('/<int:post_id>/saved', methods=["GET"])
+@login_required
+def is_post_saved(post_id):
+    post = Post.query.get(post_id)
+    if not post:
+        return jsonify({"message": "Post not found"}), 404
+    saved_post = SaveForLater.query.filter_by(user_id=current_user.id, post_id=post_id).first()
+    if saved_post is not None:
+        return jsonify({"saved": True})
+    else:
+        return jsonify({"saved": False})
+    return jsonify({"message": "Post not found"}), 404
+
 # Save a post for later
 @post_routes.route('/<int:post_id>/save', methods=["POST"])
 @login_required
