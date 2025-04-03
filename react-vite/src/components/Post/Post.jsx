@@ -16,6 +16,7 @@ function Post({ post }) {
   const user = useSelector((state) => state.session.user);
   const [showMore, setShowMore] = useState(false);
   const [showComments, setShowComments] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
   const moreOptionsRef = useRef(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const postComments = useSelector((state) =>
@@ -24,6 +25,24 @@ function Post({ post }) {
   const comments = Object.values(postComments).sort((a, b) => {
     return new Date(b.created_at) - new Date(a.created_at);
   });
+
+  useEffect(() => {
+    if (user) {
+      fetch(`/api/posts/${post.id}/saved`, {
+        method: "GET",
+        credentials: "include",
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.saved !== undefined) {
+            setIsSaved(data.saved);
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching saved status:", error);
+        });
+    }
+  }, [post.id, user]);
 
   useEffect(() => {
     dispatch(getPostComments(post.id)).then(() => setIsLoaded(true));
@@ -95,11 +114,14 @@ function Post({ post }) {
                               modalComponent={<DeletePost postId={post.id} />}
                             />
                           </>
+                        ) : isSaved ? (
+                          <button className="post-more-options post-more-save">
+                            Unsave
+                          </button>
                         ) : (
-                          <OpenModalButton
-                            className={"post-more-options post-more-save"}
-                            buttonText="Save For Later"
-                          />
+                          <button className="post-more-options post-more-save">
+                            Save for Later
+                          </button>
                         )}
                       </div>
                     )}
