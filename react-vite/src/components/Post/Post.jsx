@@ -9,7 +9,7 @@ import CreateComment from "../CreateComment/CreateComment";
 import { getPostComments } from "../../redux/comment";
 import { selectPostComments } from "../../redux/comment";
 import { csrfFetch } from "../../redux/csrf";
-import { getPosts, getSavedPosts, getPostById } from "../../redux/post";
+import { getPosts, getSavedPosts } from "../../redux/post";
 import "./Post.css";
 
 function Post({ post }) {
