@@ -9,6 +9,7 @@ import { getPostComments } from "../../redux/comment";
 import "./PostDetails.css";
 import OpenModalButton from "../OpenModalButton";
 import EditPost from "../EditPost";
+import { csrfFetch } from "../../redux/csrf";
 import { useNavigate } from "react-router-dom";
 
 function PostDetails() {
@@ -20,10 +21,63 @@ function PostDetails() {
   const moreOptionsRef = useRef(null);
   const [showMore, setShowMore] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
+
+  const handlePostUnsave = async (postId) => {
+    try {
+      const response = await csrfFetch(`/api/posts/${postId}/unsave`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        await dispatch(getPostById(postId));
+        setIsSaved(false);
+      } else {
+        console.error("Failed to unsave post");
+      }
+    } catch (error) {
+      console.error("Error unsaving post:", error);
+    }
+  };
+
+  const handlePostSave = async (postId) => {
+    try {
+      const response = await csrfFetch(`/api/posts/${postId}/save`, {
+        method: "POST",
+      });
+
+      if (response.ok) {
+        await dispatch(getPostById(postId));
+        setIsSaved(true);
+      } else {
+        console.error("Failed to save post");
+      }
+    } catch (error) {
+      console.error("Error saving post:", error);
+    }
+  };
 
   useEffect(() => {
     dispatch(getPostById(postId)).then(() => setIsLoaded(true));
   }, [dispatch, postId]);
+
+  useEffect(() => {
+    if (user) {
+      fetch(`/api/posts/${postId}/saved`, {
+        method: "GET",
+        credentials: "include",
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.saved !== undefined) {
+            setIsSaved(data.saved);
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching saved status:", error);
+        });
+    }
+  }, [postId, user]);
 
   useEffect(() => {
     if (post) {
@@ -105,11 +159,20 @@ function PostDetails() {
                             }
                           />
                         </>
+                      ) : isSaved ? (
+                        <button
+                          onClick={() => handlePostUnsave(post.id)}
+                          className="post-more-options post-more-save"
+                        >
+                          Unsave
+                        </button>
                       ) : (
-                        <OpenModalButton
-                          className={"post-more-options post-more-save"}
-                          buttonText="Save For Later"
-                        />
+                        <button
+                          onClick={() => handlePostSave(post.id)}
+                          className="post-more-options post-more-save"
+                        >
+                          Save for Later
+                        </button>
                       )}
                     </div>
                   )}

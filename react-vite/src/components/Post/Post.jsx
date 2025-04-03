@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton";
 import DeletePost from "../DeletePost/DeletePost";
 import EditPost from "../EditPost";
@@ -8,14 +8,18 @@ import Comment from "../Comment/Comment";
 import CreateComment from "../CreateComment/CreateComment";
 import { getPostComments } from "../../redux/comment";
 import { selectPostComments } from "../../redux/comment";
+import { csrfFetch } from "../../redux/csrf";
+import { getPosts, getSavedPosts } from "../../redux/post";
 import "./Post.css";
 
 function Post({ post }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const user = useSelector((state) => state.session.user);
   const [showMore, setShowMore] = useState(false);
   const [showComments, setShowComments] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
   const moreOptionsRef = useRef(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const postComments = useSelector((state) =>
@@ -24,6 +28,62 @@ function Post({ post }) {
   const comments = Object.values(postComments).sort((a, b) => {
     return new Date(b.created_at) - new Date(a.created_at);
   });
+
+  const handlePostUnsave = async (postId) => {
+    try {
+      const response = await csrfFetch(`/api/posts/${postId}/unsave`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        if (location.pathname.endsWith("/saved-posts")) {
+          await dispatch(getSavedPosts());
+        } else {
+          await dispatch(getPosts());
+        }
+        setIsSaved(false);
+      } else {
+        console.error("Failed to unsave post");
+      }
+    } catch (error) {
+      console.error("Error unsaving post:", error);
+    }
+  };
+
+  const handlePostSave = async (postId) => {
+    try {
+      const response = await csrfFetch(`/api/posts/${postId}/save`, {
+        method: "POST",
+      });
+
+      if (response.ok) {
+        await dispatch(getPosts());
+        setIsSaved(true);
+      } else {
+        console.error("Failed to save post");
+      }
+    } catch (error) {
+      console.error("Error saving post:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (user) {
+      fetch(`/api/posts/${post.id}/saved`, {
+        method: "GET",
+        credentials: "include",
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.saved !== undefined) {
+            setIsSaved(data.saved);
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching saved status:", error);
+        });
+    }
+  }, [post.id, user]);
 
   useEffect(() => {
     dispatch(getPostComments(post.id)).then(() => setIsLoaded(true));
@@ -95,11 +155,20 @@ function Post({ post }) {
                               modalComponent={<DeletePost postId={post.id} />}
                             />
                           </>
+                        ) : isSaved ? (
+                          <button
+                            onClick={() => handlePostUnsave(post.id)}
+                            className="post-more-options post-more-save"
+                          >
+                            Unsave
+                          </button>
                         ) : (
-                          <OpenModalButton
-                            className={"post-more-options post-more-save"}
-                            buttonText="Save For Later"
-                          />
+                          <button
+                            onClick={() => handlePostSave(post.id)}
+                            className="post-more-options post-more-save"
+                          >
+                            Save for Later
+                          </button>
                         )}
                       </div>
                     )}
