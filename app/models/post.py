@@ -22,3 +22,15 @@ class Post(db.Model):
     community = relationship('Community', back_populates='posts')
     image = relationship('PostImage', uselist=False, back_populates='post', cascade='all, delete-orphan')
     comments = relationship('Comment', back_populates='post', cascade='all, delete-orphan')
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'title': self.title,
+            'content': self.content,
+            'likes': self.likes,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at,
+            'tags': [tag.to_dict() for tag in self.tags],
+            'image': self.image.to_dict() if self.image else None
+        }
