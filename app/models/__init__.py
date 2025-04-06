@@ -6,4 +6,5 @@ from .post_image import PostImage
 from .saveforlater import SaveForLater
 from .tag import Tag
 from .posttag import PostTag
+from .community import Community
 from .db import environment, SCHEMA
