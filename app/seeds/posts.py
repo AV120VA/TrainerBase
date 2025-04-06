@@ -8,6 +8,7 @@ def seed_posts():
         content= 'Prismatic Evolutions hit rates are so bad',
         likes = 0,
         user_id = 1,
+        community_id = 3,
         created_at = datetime.now(),
         updated_at = datetime.now()
     )
@@ -16,6 +17,7 @@ def seed_posts():
         content= 'Will this deck still be good after the 2025 rotation?',
         likes = 0,
         user_id = 1,
+        community_id = 3,
         created_at = datetime.now(),
         updated_at = datetime.now()
     )
@@ -23,12 +25,14 @@ def seed_posts():
         title = 'Wolfe Glick is the GOAT',
         likes = 0,
         user_id = 2,
+        community_id = 2,
         created_at = datetime.now(),
         updated_at = datetime.now()
     )
     demo_post4 = Post(
         title = 'Perish Trap',
         content= 'Im copying WolfeyVGCs team',
+        community_id = 2,
         likes = 0,
         user_id = 2,
         created_at = datetime.now(),
@@ -38,6 +42,7 @@ def seed_posts():
         title = 'Hyped for Legends ZA',
         likes = 0,
         user_id = 3,
+        community_id = 1,
         created_at = datetime.now(),
         updated_at = datetime.now()
     )
@@ -46,6 +51,7 @@ def seed_posts():
         content= 'Totodile finally getting some love!',
         likes = 0,
         user_id = 3,
+        community_id = 1,
         created_at = datetime.now(),
         updated_at = datetime.now()
     )
