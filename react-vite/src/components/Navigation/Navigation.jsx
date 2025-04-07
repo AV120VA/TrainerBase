@@ -20,16 +20,48 @@ function Navigation() {
         <img src="/logo.png" alt="logo" className="logo-img" />
       </div>
       <div className="nav-links-box">
-        <NavLink className={"nav-link"} to="/communities/1">
+        <NavLink
+          style={{
+            background: "linear-gradient(90deg, #f41624, #b31217)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+          }}
+          className={"nav-link"}
+          to="/communities/1"
+        >
           PKMN
         </NavLink>
-        <NavLink className={"nav-link"} to="/communities/2">
+        <NavLink
+          style={{
+            background: "linear-gradient(90deg, #f41624, #b31217)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+          }}
+          className={"nav-link"}
+          to="/communities/2"
+        >
           VGC
         </NavLink>
-        <NavLink className={"nav-link"} to="/communities/3">
+        <NavLink
+          style={{
+            background: "linear-gradient(90deg, #f41624, #b31217)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+          }}
+          className={"nav-link"}
+          to="/communities/3"
+        >
           TCG
         </NavLink>
-        <NavLink className={"nav-link"} to="/communities/4">
+        <NavLink
+          style={{
+            background: "linear-gradient(90deg, #f41624, #b31217)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+          }}
+          className={"nav-link"}
+          to="/communities/4"
+        >
           GO
         </NavLink>
       </div>
