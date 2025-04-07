@@ -7,10 +7,10 @@
   height: 100px;
   width: 100%;
   align-items: center;
-  justify-content: space-between;
   position: fixed;
   z-index: 1000;
   background-color: #262626;
+  justify-content: space-between;
 }
 
 .home-profile-box {
@@ -44,4 +44,19 @@
   font-size: 16px;
   border-radius: 20px;
   cursor: pointer;
+}
+
+.nav-links-box {
+  display: flex;
+  gap: 20px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-size: 23px;
+  font-weight: 200;
 }

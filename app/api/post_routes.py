@@ -161,6 +161,7 @@ def new_post():
     post_data = {
         "title": data['title'],
         'user_id': current_user.id,
+        'community_id': data['community_id'],
     }
 
     if 'content' in data:

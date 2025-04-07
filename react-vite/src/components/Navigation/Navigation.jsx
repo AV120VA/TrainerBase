@@ -4,6 +4,7 @@ import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import ProfileButton from "./ProfileButton";
+import { NavLink } from "react-router-dom";
 import "./Navigation.css";
 
 function Navigation() {
@@ -17,6 +18,20 @@ function Navigation() {
         onClick={() => navigate("/")}
       >
         <img src="/logo.png" alt="logo" className="logo-img" />
+      </div>
+      <div className="nav-links-box">
+        <NavLink className={"nav-link"} to="/communities/1">
+          PKMN
+        </NavLink>
+        <NavLink className={"nav-link"} to="/communities/2">
+          VGC
+        </NavLink>
+        <NavLink className={"nav-link"} to="/communities/3">
+          TCG
+        </NavLink>
+        <NavLink className={"nav-link"} to="/communities/4">
+          GO
+        </NavLink>
       </div>
       <div className="home-profile-box">
         {user ? (
