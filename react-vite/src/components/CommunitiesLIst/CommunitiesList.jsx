@@ -37,11 +37,19 @@ function CommunitiesList() {
           />
           <div className="communities-list-container">
             {communities.map((community) => (
-              <div key={community.id} className="community-card">
-                <button className="community-card-icon">
-                  {community.name[0]}
-                </button>
-              </div>
+              <>
+                <div key={community.id} className="community-card">
+                  <button className="community-card-icon">
+                    {community.name[0]}
+                  </button>
+                  <div className="community-info-box">
+                    <h3 className="community-name">{"p/" + community.name}</h3>
+                    <p className="community-description">
+                      {community.description}
+                    </p>
+                  </div>
+                </div>
+              </>
             ))}
           </div>
         </div>
