@@ -15,6 +15,12 @@
   font-size: 18px;
   border: #393839 1px solid;
   border-radius: 22px;
+  color: white;
+}
+
+.community-search:focus {
+  outline: 2px solid #f41624;
+  box-shadow: 0px 4px 10px rgba(244, 22, 36, 0.5);
 }
 
 .communities-list-container {
@@ -32,6 +38,7 @@
   gap: 15px;
   border-bottom: 1px solid #262626;
   padding: 22px 0px 22px 0px;
+  cursor: pointer;
 }
 
 .community-card-icon {
