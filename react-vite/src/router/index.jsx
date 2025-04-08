@@ -8,6 +8,7 @@ import UserComments from "../components/UserComments";
 import PostDetails from "../components/PostDetails/PostDetails";
 import SavedPosts from "../components/SavedPosts/SavedPosts";
 import CommunitiesList from "../components/CommunitiesLIst";
+import CommunityPage from "../components/CommunityPage/CommunityPage";
 
 export const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ export const router = createBrowserRouter([
       {
         path: "communities",
         element: <CommunitiesList />,
+      },
+      {
+        path: "communities/:communityId",
+        element: <CommunityPage />,
       },
     ],
   },
