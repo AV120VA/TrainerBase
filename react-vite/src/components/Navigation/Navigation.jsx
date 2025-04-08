@@ -64,6 +64,17 @@ function Navigation() {
         >
           GO
         </NavLink>
+        <NavLink
+          style={{
+            background: "linear-gradient(90deg, #f41624, white)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+          }}
+          className={"nav-link"}
+          to="/communities"
+        >
+          EXPLORE
+        </NavLink>
       </div>
       <div className="home-profile-box">
         {user ? (
