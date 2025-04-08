@@ -22,7 +22,7 @@ function Navigation() {
       <div className="nav-links-box">
         <NavLink
           style={{
-            background: "linear-gradient(90deg, #f41624, #b31217)",
+            background: "linear-gradient(90deg, #f41624, white)",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
           }}
@@ -33,7 +33,7 @@ function Navigation() {
         </NavLink>
         <NavLink
           style={{
-            background: "linear-gradient(90deg, #f41624, #b31217)",
+            background: "linear-gradient(90deg, #f41624, white)",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
           }}
@@ -44,7 +44,7 @@ function Navigation() {
         </NavLink>
         <NavLink
           style={{
-            background: "linear-gradient(90deg, #f41624, #b31217)",
+            background: "linear-gradient(90deg, #f41624, white)",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
           }}
@@ -55,7 +55,7 @@ function Navigation() {
         </NavLink>
         <NavLink
           style={{
-            background: "linear-gradient(90deg, #f41624, #b31217)",
+            background: "linear-gradient(90deg, #f41624, white)",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
           }}
