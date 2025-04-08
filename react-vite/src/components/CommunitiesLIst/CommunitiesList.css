@@ -1,11 +1,19 @@
 .communities-list-page-container {
-  margin-top: 145px;
+  margin-top: 125px;
   width: 100%;
   height: fit-content;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
+.community-list-header {
+  color: white;
+  margin-bottom: 25px;
+  font-weight: 200;
+  font-size: 33px;
+}
+
 .community-search {
   width: 30%;
   height: 30px;

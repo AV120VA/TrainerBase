@@ -41,6 +41,7 @@ function CommunitiesList() {
     <>
       {isLoaded && (
         <div className="communities-list-page-container">
+          <h2 className="community-list-header">Community Hub</h2>
           <input
             className="community-search"
             type="text"
