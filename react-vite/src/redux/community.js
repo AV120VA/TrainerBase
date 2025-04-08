@@ -45,4 +45,4 @@ function communityReducer(state = initialState, action) {
   }
 }
 
-export default communityReducers;
+export default communityReducer;

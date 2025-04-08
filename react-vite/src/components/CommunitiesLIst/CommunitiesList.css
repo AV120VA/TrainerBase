@@ -1,0 +1,35 @@
+.communities-list-page-container {
+  margin-top: 145px;
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.community-search {
+  width: 30%;
+  height: 30px;
+  background-color: #262626;
+  border: none;
+  padding: 10px 0px 10px 25px;
+  font-size: 18px;
+  border: #393839 1px solid;
+  border-radius: 22px;
+}
+
+.communities-list-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 45px;
+  gap: 25px;
+}
+
+.community-card-icon {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  font-size: 20px;
+  color: white;
+  border: none;
+  background-color: #f41723;
+}
