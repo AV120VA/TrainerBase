@@ -11,6 +11,7 @@ function CreatePost() {
   const [formData, setFormData] = useState({
     title: "",
     content: "",
+    community_id: 1,
   });
 
   const validateUrl = (str) => {

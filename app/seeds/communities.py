@@ -18,7 +18,7 @@ def seed_communities():
         updated_at = datetime.now()
     )
     demo_community3 = Community(
-        name = 'TGC',
+        name = 'TCG',
         description= 'A community for all things TCG!',
         created_at = datetime.now(),
         user_id = 2,
