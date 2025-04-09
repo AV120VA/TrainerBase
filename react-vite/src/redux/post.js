@@ -12,6 +12,7 @@ const ADD_POST = "posts/ADD_POST";
 const DELETE_POST = "posts/DELETE_POST";
 const UPDATE_POST = "posts/UPDATE_POST";
 const LOAD_SAVED_POSTS = "posts/LOAD_SAVED_POSTS";
+const LOAD_COMMUNITY_POSTS = "posts/LOAD_COMMUNITY_POSTS";
 
 // Action Creators
 const loadPost = (posts) => {
@@ -38,6 +39,13 @@ const loadUserPosts = (posts) => {
 const loadSavedPosts = (posts) => {
   return {
     type: LOAD_SAVED_POSTS,
+    posts,
+  };
+};
+
+const loadCommunityPosts = (posts) => {
+  return {
+    type: LOAD_COMMUNITY_POSTS,
     posts,
   };
 };
@@ -83,6 +91,18 @@ export const getSavedPosts = () => async (dispatch) => {
     const data = await response.json();
     const posts = data.Posts;
     dispatch(loadSavedPosts(posts));
+  } else {
+    return await response.json();
+  }
+};
+
+export const getCommunityPosts = (communityId) => async (dispatch) => {
+  const response = await fetch(`/api/communities/${communityId}/posts`);
+
+  if (response.ok) {
+    const data = await response.json();
+    const posts = data.Posts;
+    dispatch(loadCommunityPosts(posts));
   } else {
     return await response.json();
   }
@@ -176,6 +196,7 @@ const initialState = {
   userPosts: {},
   postById: {},
   savedPosts: {},
+  communityPosts: {},
 };
 
 function postReducer(state = initialState, action) {
@@ -193,6 +214,13 @@ function postReducer(state = initialState, action) {
         savedPosts[post.id] = post;
       });
       return { ...state, savedPosts };
+    }
+    case LOAD_COMMUNITY_POSTS: {
+      const communityPosts = {};
+      action.posts.forEach((post) => {
+        communityPosts[post.id] = post;
+      });
+      return { ...state, communityPosts };
     }
     case LOAD_POST_BY_ID: {
       return { ...state, postById: action.post };
