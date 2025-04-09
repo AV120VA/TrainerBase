@@ -8,7 +8,7 @@ import UserComments from "../components/UserComments";
 import PostDetails from "../components/PostDetails/PostDetails";
 import SavedPosts from "../components/SavedPosts/SavedPosts";
 import CommunitiesList from "../components/CommunitiesLIst";
-import CommunityPage from "../components/CommunityPage/CommunityPage";
+import CommunityPage from "../components/CommunityPage";
 
 export const router = createBrowserRouter([
   {

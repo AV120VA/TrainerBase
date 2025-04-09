@@ -32,6 +32,7 @@
   word-wrap: break-word;
   overflow-wrap: break-word;
   word-break: break-word;
+  margin-bottom: 25px;
 }
 
 .new-community-post-button {
@@ -42,4 +43,9 @@
   width: 85px;
   border-radius: 20px;
   font-size: 19px;
+}
+
+.convo-started {
+  font-size: 20px;
+  margin-top: 20px;
 }
