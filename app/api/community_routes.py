@@ -17,6 +17,16 @@ def communities():
         result.append(community_dict)
     return jsonify({"Communities": result})
 
+# Get a community by ID
+@community_routes.route('/<int:community_id>', methods=["GET"])
+def community(community_id):
+    community = Community.query.get(community_id)
+
+    if community is None:
+        return jsonify({"error": "Community not found"}), 404
+
+    return jsonify({"Community": community.to_dict()})
+
 # Get all posts in a community
 @community_routes.route('/<int:community_id>/posts', methods=["GET"])
 def community_posts(community_id):
