@@ -1,0 +1,51 @@
+.community-page-container {
+  margin-top: 125px;
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.community-header-box {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.community-header-and-options {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.community-page-header {
+  color: white;
+  font-size: 45px;
+  font-weight: 200;
+}
+
+.community-page-description {
+  color: white;
+  font-size: 23px;
+  align-self: center;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  margin-bottom: 25px;
+}
+
+.new-community-post-button {
+  background-color: #f41624;
+  color: white;
+  border: none;
+  height: 40px;
+  width: 85px;
+  border-radius: 20px;
+  font-size: 19px;
+}
+
+.convo-started {
+  font-size: 20px;
+  margin-top: 20px;
+}
