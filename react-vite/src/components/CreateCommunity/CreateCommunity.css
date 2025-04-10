@@ -1,3 +1,55 @@
-.test {
+.create-community-form {
+  width: 100%;
+  display: flex;
   margin-top: 25px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.create-community-inputs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 75%;
+  height: fit-content;
+  gap: 15px;
+}
+
+.create-community-name {
+  width: 98%;
+  border: none;
+  background-color: #202020;
+  color: white;
+  padding: 15px;
+  border: #393839 1px solid;
+  border-radius: 22px;
+  font-size: 16px;
+}
+
+.create-community-description {
+  width: 98%;
+  resize: none;
+  border: none;
+  background-color: #202020;
+  color: white;
+  height: 50px;
+  padding: 15px;
+  border: #393839 1px solid;
+  border-radius: 22px;
+  font-size: 17px;
+}
+
+.submit-community-button {
+  height: 40px;
+  background-color: #f41723;
+  border: none;
+  color: white;
+  font-size: 18px;
+  padding: 0px 20px 0px 20px;
+  border-radius: 20px;
+}
+
+.create-community-input:focus {
+  outline: 2px solid #f41624;
+  box-shadow: 0px 4px 10px rgba(244, 22, 36, 0.5);
 }
