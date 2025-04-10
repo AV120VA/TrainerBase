@@ -11,7 +11,9 @@ function CommunitiesList() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [showForm, setShowForm] = useState(false);
+  const [showOptions, setShowOptions] = useState(false);
   const { allCommunities } = useSelector((state) => state.communities);
+  const user = useSelector((state) => state.session.user);
   const rawCommunities = useMemo(
     () => (allCommunities ? Object.values(allCommunities) : []),
     [allCommunities]
@@ -74,15 +76,18 @@ function CommunitiesList() {
                 onClick={() => navigate(`/communities/${community.id}`)}
                 className="community-card"
               >
-                <button className="community-card-icon">
-                  {community.name[0]}
-                </button>
-                <div className="community-info-box">
-                  <h3 className="community-name">{"p/" + community.name}</h3>
-                  <p className="community-description">
-                    {community.description}
-                  </p>
+                <div className="community-card-box-1">
+                  <button className="community-card-icon">
+                    {community.name[0]}
+                  </button>
+                  <div className="community-info-box">
+                    <h3 className="community-name">{"p/" + community.name}</h3>
+                    <p className="community-description">
+                      {community.description}
+                    </p>
+                  </div>
                 </div>
+                <button className="community-card-options">...</button>
               </div>
             ))}
           </div>
