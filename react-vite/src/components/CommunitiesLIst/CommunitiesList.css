@@ -9,7 +9,6 @@
 
 .community-list-header {
   color: white;
-  margin-bottom: 25px;
   font-weight: 200;
   font-size: 33px;
 }
@@ -17,7 +16,7 @@
 .community-search {
   width: 30%;
   height: 30px;
-  background-color: #262626;
+  background-color: #202020;
   border: none;
   padding: 10px 0px 10px 25px;
   font-size: 18px;
@@ -34,7 +33,7 @@
 .communities-list-container {
   display: flex;
   flex-direction: column;
-  margin-top: 45px;
+  margin-top: 25px;
   width: 33%;
   align-items: center;
 }
@@ -42,7 +41,6 @@
 .community-card {
   width: 100%;
   display: flex;
-  align-items: flex-start;
   gap: 15px;
   border-bottom: 1px solid #262626;
   padding: 22px 0px 22px 0px;
@@ -63,6 +61,7 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+  width: 85%;
 }
 
 .community-name {
@@ -77,4 +76,49 @@
   word-wrap: break-word;
   overflow-wrap: break-word;
   word-break: break-word;
+}
+
+.community-list-header-and-button {
+  display: flex;
+  gap: 20px;
+  flex-direction: row;
+  height: fit-content;
+  width: fit-content;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.create-community-button {
+  color: white;
+  height: 35px;
+  border: none;
+  font-size: 18px;
+  border-radius: 15px;
+  padding: 0px 12px 0px 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.create-community-form-box {
+  width: 30%;
+}
+
+.community-card-options {
+  border: none;
+  background-color: transparent;
+  color: white;
+  font-size: 20px;
+  align-items: flex-start;
+  height: fit-content;
+  padding: 0;
+  align-items: flex-start;
+  cursor: pointer;
+}
+
+.community-card-box-1 {
+  display: flex;
+  gap: 15px;
+  width: 90%;
 }

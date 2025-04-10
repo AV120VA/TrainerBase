@@ -1,6 +1,14 @@
+import { csrfFetch } from "./csrf";
+
+const headers = {
+  "Content-Type": "application/json",
+};
+
 // Action Types
 const LOAD_COMMUNITIES = "communities/LOAD_COMMUNITIES";
 const LOAD_COMMUNITY_BY_ID = "communities/LOAD_COMMUNITY_BY_ID";
+const ADD_COMMUNITY = "communities/ADD_COMMUNITY";
+const DELETE_COMMUNITY = "communities/DELETE_COMMUNITY";
 
 // Action Creators
 
@@ -15,6 +23,20 @@ const loadCommunityById = (community) => {
   return {
     type: LOAD_COMMUNITY_BY_ID,
     community,
+  };
+};
+
+const addCommunity = (community) => {
+  return {
+    type: ADD_COMMUNITY,
+    community,
+  };
+};
+
+const removeCommunity = (communityId) => {
+  return {
+    type: DELETE_COMMUNITY,
+    communityId,
   };
 };
 
@@ -46,6 +68,46 @@ export const getCommunityById = (communityId) => async (dispatch) => {
   }
 };
 
+export const createCommunity = (communityData) => async (dispatch) => {
+  try {
+    const response = await csrfFetch("/api/communities/", {
+      method: "POST",
+      headers,
+      body: JSON.stringify(communityData),
+    });
+
+    if (response.ok) {
+      const community = await response.json();
+      dispatch(addCommunity(community));
+      return community;
+    } else {
+      const errors = await response.json();
+      return errors;
+    }
+  } catch (error) {
+    console.error("ERROR CREATING", error);
+    return error;
+  }
+};
+
+export const deleteCommunity = (communityId) => async (dispatch) => {
+  try {
+    const response = await csrfFetch(`/api/communities/${communityId}`, {
+      method: "DELETE",
+    });
+    if (response.ok) {
+      dispatch(removeCommunity(communityId));
+      return response;
+    } else {
+      const error = await response.json();
+      throw new Error(error.message);
+    }
+  } catch (e) {
+    console.error("Error deleting community:", e);
+    return e;
+  }
+};
+
 //reducer
 
 const initialState = {
@@ -64,6 +126,16 @@ function communityReducer(state = initialState, action) {
     }
     case LOAD_COMMUNITY_BY_ID: {
       return { ...state, communityById: action.community };
+    }
+    case ADD_COMMUNITY: {
+      const newState = { ...state };
+      newState.allCommunities[action.community.id] = action.community;
+      return newState;
+    }
+    case DELETE_COMMUNITY: {
+      const newState = { ...state };
+      delete newState.allCommunities[action.communityId];
+      return newState;
     }
     default:
       return state;

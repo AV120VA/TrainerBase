@@ -1,0 +1,12 @@
+.delete-community-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 35px;
+  width: 85px;
+  border: none;
+  font-size: 20px;
+  border-radius: 15px;
+  color: white;
+  cursor: pointer;
+}
