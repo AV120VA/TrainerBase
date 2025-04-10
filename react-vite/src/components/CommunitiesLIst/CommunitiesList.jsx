@@ -2,6 +2,7 @@ import { getCommunities } from "../../redux/community";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
+import CreateCommunity from "../CreateCommunity/CreateCommunity";
 
 import "./CommunitiesList.css";
 
@@ -10,6 +11,7 @@ function CommunitiesList() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [showForm, setShowForm] = useState(false);
   const { allCommunities } = useSelector((state) => state.communities);
   const rawCommunities = useMemo(
     () => (allCommunities ? Object.values(allCommunities) : []),
@@ -43,7 +45,12 @@ function CommunitiesList() {
         <div className="communities-list-page-container">
           <div className="community-list-header-and-button">
             <h2 className="community-list-header">Community Hub</h2>
-            <button className="create-community-button">+ Community</button>
+            <button
+              onClick={() => setShowForm(!showForm)}
+              className="create-community-button"
+            >
+              + Community
+            </button>
           </div>
           <input
             className="community-search"
@@ -52,6 +59,12 @@ function CommunitiesList() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
+          {showForm && (
+            <div className="create-community-form-box">
+              {" "}
+              <CreateCommunity />{" "}
+            </div>
+          )}
           <div className="communities-list-container">
             {communities.map((community) => (
               <div
