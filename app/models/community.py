@@ -15,7 +15,7 @@ class Community(db.Model):
     updated_at = db.Column(db.DateTime, nullable=False, server_default=func.now(), onupdate=func.now())
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
 
-    posts = relationship('Post', back_populates='community')
+    posts = relationship('Post', back_populates='community', cascade='all, delete-orphan')
 
     def to_dict(self, include_posts=False):
         community_dict = {
@@ -23,7 +23,8 @@ class Community(db.Model):
             'name': self.name,
             'description': self.description,
             'created_at': self.created_at,
-            'updated_at': self.updated_at
+            'updated_at': self.updated_at,
+            'user_id': self.user_id,
         }
         if include_posts:
             community_dict['posts'] = [post.to_dict() for post in self.posts]

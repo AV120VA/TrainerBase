@@ -52,9 +52,11 @@ function CommunityPage() {
               </h2>
               <button className="new-community-post-button">+ Post</button>
             </div>
-            <p className="community-page-description">
-              {community.description}
-            </p>
+            <div className="community-description-box">
+              <p className="community-page-description">
+                {community.description}
+              </p>
+            </div>
           </div>
           {posts.map((post) => (
             <Post key={post.id} post={post} />
