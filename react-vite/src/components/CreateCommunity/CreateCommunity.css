@@ -15,7 +15,7 @@
   align-items: center;
   width: 75%;
   height: fit-content;
-  gap: 15px;
+  gap: 20px;
 }
 
 .create-community-name {
@@ -53,6 +53,11 @@
 }
 
 .create-community-input:focus {
-  outline: 2px solid #f41624;
+  outline: 2px solid #f41623;
   box-shadow: 0px 4px 10px rgba(244, 22, 36, 0.5);
+}
+
+.create-community-error {
+  color: #f41723;
+  align-self: flex-start;
 }

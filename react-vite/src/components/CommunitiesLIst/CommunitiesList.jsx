@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import CreateCommunity from "../CreateCommunity/CreateCommunity";
-
 import "./CommunitiesList.css";
 
 function CommunitiesList() {
