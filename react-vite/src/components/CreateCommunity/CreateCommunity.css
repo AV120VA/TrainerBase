@@ -4,6 +4,9 @@
   margin-top: 25px;
   justify-content: space-between;
   align-items: center;
+  border-top: 1px solid #393839;
+  border-bottom: 1px solid #393839;
+  padding: 25px 0px 25px 0px;
 }
 
 .create-community-inputs {

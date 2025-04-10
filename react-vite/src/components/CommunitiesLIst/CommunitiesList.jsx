@@ -47,6 +47,9 @@ function CommunitiesList() {
             <h2 className="community-list-header">Community Hub</h2>
             <button
               onClick={() => setShowForm(!showForm)}
+              style={{
+                backgroundColor: showForm ? "gray" : "#f41723",
+              }}
               className="create-community-button"
             >
               + Community
