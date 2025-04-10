@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import CreateCommunity from "../CreateCommunity/CreateCommunity";
+import OpenModalButton from "../OpenModalButton";
+import DeleteCommunity from "../DeleteCommunity/DeleteCommunity";
 import "./CommunitiesList.css";
 
 function CommunitiesList() {
@@ -86,7 +88,13 @@ function CommunitiesList() {
                   </div>
                 </div>
                 {user && user.id === community.user_id ? (
-                  <button className="community-card-options">...</button>
+                  <OpenModalButton
+                    className={"community-card-options"}
+                    buttonText={"..."}
+                    modalComponent={
+                      <DeleteCommunity communityId={community.id} />
+                    }
+                  />
                 ) : null}
               </div>
             ))}
