@@ -62,7 +62,6 @@
   flex-direction: column;
   gap: 8px;
   width: 85%;
-  border: 1px solid blue;
 }
 
 .community-name {
@@ -115,6 +114,7 @@
   height: fit-content;
   padding: 0;
   align-items: flex-start;
+  cursor: pointer;
 }
 
 .community-card-box-1 {

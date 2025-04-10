@@ -23,7 +23,8 @@ class Community(db.Model):
             'name': self.name,
             'description': self.description,
             'created_at': self.created_at,
-            'updated_at': self.updated_at
+            'updated_at': self.updated_at,
+            'user_id': self.user_id,
         }
         if include_posts:
             community_dict['posts'] = [post.to_dict() for post in self.posts]

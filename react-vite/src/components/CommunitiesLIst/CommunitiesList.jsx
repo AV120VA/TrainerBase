@@ -11,7 +11,6 @@ function CommunitiesList() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [showForm, setShowForm] = useState(false);
-  const [showOptions, setShowOptions] = useState(false);
   const { allCommunities } = useSelector((state) => state.communities);
   const user = useSelector((state) => state.session.user);
   const rawCommunities = useMemo(
@@ -71,12 +70,11 @@ function CommunitiesList() {
           )}
           <div className="communities-list-container">
             {communities.map((community) => (
-              <div
-                key={community.id}
-                onClick={() => navigate(`/communities/${community.id}`)}
-                className="community-card"
-              >
-                <div className="community-card-box-1">
+              <div key={community.id} className="community-card">
+                <div
+                  onClick={() => navigate(`/communities/${community.id}`)}
+                  className="community-card-box-1"
+                >
                   <button className="community-card-icon">
                     {community.name[0]}
                   </button>
@@ -87,7 +85,9 @@ function CommunitiesList() {
                     </p>
                   </div>
                 </div>
-                <button className="community-card-options">...</button>
+                {user && user.id === community.user_id ? (
+                  <button className="community-card-options">...</button>
+                ) : null}
               </div>
             ))}
           </div>
