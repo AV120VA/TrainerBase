@@ -25,14 +25,23 @@
   font-weight: 200;
 }
 
+.community-description-box {
+  background-color: #262626;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 25px 0px 25px 0px;
+  border-radius: 20px;
+  width: 100%;
+  height: fit-content;
+}
+
 .community-page-description {
   color: white;
-  font-size: 23px;
-  align-self: center;
+  font-size: 22px;
   word-wrap: break-word;
   overflow-wrap: break-word;
   word-break: break-word;
-  margin-bottom: 25px;
 }
 
 .new-community-post-button {
