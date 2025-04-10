@@ -1,6 +1,13 @@
+import { csrfFetch } from "./csrf";
+
+const headers = {
+  "Content-Type": "application/json",
+};
+
 // Action Types
 const LOAD_COMMUNITIES = "communities/LOAD_COMMUNITIES";
 const LOAD_COMMUNITY_BY_ID = "communities/LOAD_COMMUNITY_BY_ID";
+const ADD_COMMUNITY = "communities/ADD_COMMUNITY";
 
 // Action Creators
 
@@ -14,6 +21,13 @@ const loadCommunities = (communities) => {
 const loadCommunityById = (community) => {
   return {
     type: LOAD_COMMUNITY_BY_ID,
+    community,
+  };
+};
+
+const addCommunity = (community) => {
+  return {
+    type: ADD_COMMUNITY,
     community,
   };
 };
@@ -46,6 +60,28 @@ export const getCommunityById = (communityId) => async (dispatch) => {
   }
 };
 
+export const createCommunity = (communityData) => async (dispatch) => {
+  try {
+    const response = await csrfFetch("/api/communities/", {
+      method: "POST",
+      headers,
+      body: JSON.stringify(communityData),
+    });
+
+    if (response.ok) {
+      const community = await response.json();
+      dispatch(addCommunity(community));
+      return community;
+    } else {
+      const errors = await response.json();
+      return errors;
+    }
+  } catch (error) {
+    console.error("ERROR CREATING", error);
+    return error;
+  }
+};
+
 //reducer
 
 const initialState = {
@@ -64,6 +100,11 @@ function communityReducer(state = initialState, action) {
     }
     case LOAD_COMMUNITY_BY_ID: {
       return { ...state, communityById: action.community };
+    }
+    case ADD_COMMUNITY: {
+      const newState = { ...state };
+      newState.allCommunities[action.community.id] = action.community;
+      return newState;
     }
     default:
       return state;

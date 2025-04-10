@@ -147,7 +147,7 @@ export const createPost = (postData) => async (dispatch) => {
       return post;
     } else {
       const error = await response.json();
-      throw new error(error.message);
+      throw new Error(error.message);
     }
   } catch (e) {
     console.log("Error adding post:", e);

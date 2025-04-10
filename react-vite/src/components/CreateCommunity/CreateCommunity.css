@@ -50,6 +50,7 @@
   font-size: 18px;
   padding: 0px 20px 0px 20px;
   border-radius: 20px;
+  cursor: pointer;
 }
 
 .create-community-input:focus {
