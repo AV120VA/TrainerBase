@@ -41,7 +41,10 @@ function CommunitiesList() {
     <>
       {isLoaded && (
         <div className="communities-list-page-container">
-          <h2 className="community-list-header">Community Hub</h2>
+          <div className="community-list-header-and-button">
+            <h2 className="community-list-header">Community Hub</h2>
+            <button className="create-community-button">+ Community</button>
+          </div>
           <input
             className="community-search"
             type="text"

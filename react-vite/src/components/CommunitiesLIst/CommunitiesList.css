@@ -9,7 +9,6 @@
 
 .community-list-header {
   color: white;
-  margin-bottom: 25px;
   font-weight: 200;
   font-size: 33px;
 }
@@ -34,7 +33,7 @@
 .communities-list-container {
   display: flex;
   flex-direction: column;
-  margin-top: 45px;
+  margin-top: 25px;
   width: 33%;
   align-items: center;
 }
@@ -77,4 +76,27 @@
   word-wrap: break-word;
   overflow-wrap: break-word;
   word-break: break-word;
+}
+
+.community-list-header-and-button {
+  display: flex;
+  gap: 20px;
+  flex-direction: row;
+  height: fit-content;
+  width: fit-content;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.create-community-button {
+  background-color: #f41723;
+  color: white;
+  height: 35px;
+  border: none;
+  font-size: 18px;
+  border-radius: 15px;
+  padding: 0px 12px 0px 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
