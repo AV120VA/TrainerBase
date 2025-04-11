@@ -130,6 +130,9 @@ function Post({ post }) {
                 <h3 className="post-text">{post.User.username}</h3>
                 <p className="post-text">{post.created_at.slice(0, 16)}</p>
               </div>
+              {post.created_at !== post.updated_at ? (
+                <p className="post-edited-tag">(Edited)</p>
+              ) : null}
             </div>
             <div className="post-more-box">
               <div className="post-more-box" ref={moreOptionsRef}>
