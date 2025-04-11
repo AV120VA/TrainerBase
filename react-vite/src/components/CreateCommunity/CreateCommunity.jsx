@@ -1,15 +1,26 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { createCommunity, getCommunities } from "../../redux/community";
+import { useLocation } from "react-router-dom";
+import {
+  createCommunity,
+  getCommunities,
+  getUserCommunities,
+} from "../../redux/community";
 import "./CreateCommunity.css";
 
 function CreateCommunity() {
   const dispatch = useDispatch();
+  const location = useLocation();
   const [showErrors, setShowErrors] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     description: "",
   });
+  const disableMe =
+    formData.name.length === 0 ||
+    formData.name[0] === " " ||
+    formData.description.length === 0 ||
+    formData.description[0] === " ";
 
   const handleChange = (e) => {
     setFormData({
@@ -30,7 +41,11 @@ function CreateCommunity() {
       });
 
       setShowErrors(false);
-      await dispatch(getCommunities());
+      if (location.pathname.endsWith("/my-communities")) {
+        await dispatch(getUserCommunities());
+      } else {
+        await dispatch(getCommunities());
+      }
     }
   };
 
@@ -65,7 +80,15 @@ function CreateCommunity() {
           <p className="create-community-error">Description is required</p>
         ) : null}
       </div>
-      <button type="submit" className="submit-community-button">
+      <button
+        disabled={disableMe}
+        style={{
+          backgroundColor: disableMe ? "gray" : "#f41723",
+          cursor: disableMe ? "not-allowed" : "pointer",
+        }}
+        type="submit"
+        className="submit-community-button"
+      >
         Submit
       </button>
     </form>

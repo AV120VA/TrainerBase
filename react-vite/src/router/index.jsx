@@ -9,6 +9,7 @@ import PostDetails from "../components/PostDetails/PostDetails";
 import SavedPosts from "../components/SavedPosts/SavedPosts";
 import CommunitiesList from "../components/CommunitiesLIst";
 import CommunityPage from "../components/CommunityPage";
+import UserCommunities from "../components/UserCommunities";
 
 export const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ export const router = createBrowserRouter([
       {
         path: "my-comments",
         element: <UserComments />,
+      },
+      {
+        path: "my-communities",
+        element: <UserCommunities />,
       },
       {
         path: "posts/:postId",

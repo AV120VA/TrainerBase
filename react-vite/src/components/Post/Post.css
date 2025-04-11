@@ -204,3 +204,8 @@
   pointer-events: none;
   border-radius: 10px;
 }
+
+.post-edited-tag {
+  color: #808080;
+  font-size: 16px;
+}

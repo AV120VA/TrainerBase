@@ -6,6 +6,7 @@ const headers = {
 
 // Action Types
 const LOAD_COMMUNITIES = "communities/LOAD_COMMUNITIES";
+const LOAD_USER_COMMUNITIES = "communities/LOAD_USER_COMMUNITIES";
 const LOAD_COMMUNITY_BY_ID = "communities/LOAD_COMMUNITY_BY_ID";
 const ADD_COMMUNITY = "communities/ADD_COMMUNITY";
 const DELETE_COMMUNITY = "communities/DELETE_COMMUNITY";
@@ -16,6 +17,13 @@ const loadCommunities = (communities) => {
   return {
     type: LOAD_COMMUNITIES,
     communities,
+  };
+};
+
+const loadUserCommunities = (userCommunities) => {
+  return {
+    type: LOAD_USER_COMMUNITIES,
+    userCommunities,
   };
 };
 
@@ -49,6 +57,18 @@ export const getCommunities = () => async (dispatch) => {
     const data = await response.json();
     const communities = data.Communities;
     dispatch(loadCommunities(communities));
+  } else {
+    return await response.json();
+  }
+};
+
+export const getUserCommunities = () => async (dispatch) => {
+  const response = await fetch("/api/communities/user");
+
+  if (response.ok) {
+    const data = await response.json();
+    const userCommunities = data.Communities;
+    dispatch(loadUserCommunities(userCommunities));
   } else {
     return await response.json();
   }
@@ -113,6 +133,7 @@ export const deleteCommunity = (communityId) => async (dispatch) => {
 const initialState = {
   allCommunities: {},
   communityById: {},
+  userCommunities: {},
 };
 
 function communityReducer(state = initialState, action) {
@@ -123,6 +144,13 @@ function communityReducer(state = initialState, action) {
         allCommunities[community.id] = community;
       });
       return { ...state, allCommunities };
+    }
+    case LOAD_USER_COMMUNITIES: {
+      const userCommunities = {};
+      action.userCommunities.forEach((community) => {
+        userCommunities[community.id] = community;
+      });
+      return { ...state, userCommunities };
     }
     case LOAD_COMMUNITY_BY_ID: {
       return { ...state, communityById: action.community };

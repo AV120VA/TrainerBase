@@ -17,6 +17,19 @@ def communities():
         result.append(community_dict)
     return jsonify({"Communities": result})
 
+# Get communities belonging to the user
+@community_routes.route('/user', methods=["GET"])
+@login_required
+def user_communities():
+    communities = Community.query.filter(Community.user_id == current_user.id).all()
+
+    result = []
+
+    for community in communities:
+        community_dict = community.to_dict()
+        result.append(community_dict)
+    return jsonify({"Communities": result})
+
 # Get a community by ID
 @community_routes.route('/<int:community_id>', methods=["GET"])
 def community(community_id):

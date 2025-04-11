@@ -117,6 +117,19 @@ function ProfileButton() {
           >
             Manage Comments
           </li>
+          <li
+            style={{
+              listStyleType: "none",
+              color: "#f41624",
+              cursor: "pointer",
+            }}
+            onClick={() => {
+              navigate("/my-communities");
+              closeMenu();
+            }}
+          >
+            Manage Communities
+          </li>
           <li style={{ listStyleType: "none" }}>
             <button
               style={{
