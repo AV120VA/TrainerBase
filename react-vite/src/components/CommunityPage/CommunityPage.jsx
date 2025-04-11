@@ -53,13 +53,17 @@ function CommunityPage() {
               >
                 Welcome to {"p/" + community.name}!
               </h2>
-              <button
-                onClick={() => setShowPostForm(!showPostForm)}
-                style={{ backgroundColor: !showPostForm ? "#f41624" : "gray" }}
-                className="new-community-post-button"
-              >
-                + Post
-              </button>
+              {user ? (
+                <button
+                  onClick={() => setShowPostForm(!showPostForm)}
+                  style={{
+                    backgroundColor: !showPostForm ? "#f41624" : "gray",
+                  }}
+                  className="new-community-post-button"
+                >
+                  + Post
+                </button>
+              ) : null}
             </div>
             <div className="community-description-box">
               <p className="community-page-description">

@@ -47,15 +47,17 @@ function CommunitiesList() {
         <div className="communities-list-page-container">
           <div className="community-list-header-and-button">
             <h2 className="community-list-header">Community Hub</h2>
-            <button
-              onClick={() => setShowForm(!showForm)}
-              style={{
-                backgroundColor: showForm ? "gray" : "#f41723",
-              }}
-              className="create-community-button"
-            >
-              + Community
-            </button>
+            {user ? (
+              <button
+                onClick={() => setShowForm(!showForm)}
+                style={{
+                  backgroundColor: showForm ? "gray" : "#f41723",
+                }}
+                className="create-community-button"
+              >
+                + Community
+              </button>
+            ) : null}
           </div>
           <input
             className="community-search"
