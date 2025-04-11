@@ -49,6 +49,7 @@ def community_posts(community_id):
         }
         if image_url is not None:
             post_dict['PostImage'] = image_url
+        post_dict["Community"] = community.name
 
         result.append(post_dict)
 
