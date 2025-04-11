@@ -5,14 +5,17 @@ import "./CommunityPage.css";
 import { getCommunityById } from "../../redux/community";
 import { getCommunityPosts } from "../../redux/post";
 import Post from "../Post/Post";
+import CreateCommPost from "../CreateCommPost";
 
 function CommunityPage() {
   const dispatch = useDispatch();
   const { communityId } = useParams();
   const [isLoaded, setIsLoaded] = useState(false);
   const [posts, setPosts] = useState([]);
+  const [showPostForm, setShowPostForm] = useState(false);
   const community = useSelector((state) => state.communities.communityById);
   const { communityPosts } = useSelector((state) => state.posts);
+  const { user } = useSelector((state) => state.session);
 
   useEffect(() => {
     dispatch(getCommunityById(communityId));
@@ -50,13 +53,20 @@ function CommunityPage() {
               >
                 Welcome to {"p/" + community.name}!
               </h2>
-              <button className="new-community-post-button">+ Post</button>
+              <button
+                onClick={() => setShowPostForm(!showPostForm)}
+                style={{ backgroundColor: !showPostForm ? "#f41624" : "gray" }}
+                className="new-community-post-button"
+              >
+                + Post
+              </button>
             </div>
             <div className="community-description-box">
               <p className="community-page-description">
                 {community.description}
               </p>
             </div>
+            {user && showPostForm ? <CreateCommPost /> : null}
           </div>
           {posts.map((post) => (
             <Post key={post.id} post={post} />

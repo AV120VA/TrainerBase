@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import Post, PostImage, User, SaveForLater
+from app.models import Post, PostImage, User, SaveForLater, Community
 from app.models.db import db
 
 post_routes = Blueprint('posts', __name__)
@@ -14,6 +14,7 @@ def posts():
     for post in posts:
         user = User.query.get(post.user_id)
         post_image = PostImage.query.filter_by(post_id=post.id).first()
+        community = Community.query.get(post.community_id)
         image_url = post_image.image_url if post_image else None
 
         post_dict = post.to_dict()
@@ -23,6 +24,7 @@ def posts():
         }
         if image_url is not None:
             post_dict['PostImage'] = image_url
+        post_dict["Community"] = community.name
 
         result.append(post_dict)
 
@@ -35,6 +37,7 @@ def single_post(post_id):
     user = User.query.get(post.user_id)
     post_image = PostImage.query.filter_by(post_id=post.id).first()
     image_url = post_image.image_url if post_image else None
+    community = Community.query.get(post.community_id)
 
     post_dict = post.to_dict()
     post_dict['User'] = {
@@ -43,6 +46,7 @@ def single_post(post_id):
     }
     if image_url is not None:
         post_dict['PostImage'] = image_url
+    post_dict["Community"] = community.name
 
     return jsonify(post_dict)
 
@@ -58,6 +62,7 @@ def user_posts():
         user = User.query.get(post.user_id)
         post_image = PostImage.query.filter_by(post_id=post.id).first()
         image_url = post_image.image_url if post_image else None
+        community = Community.query.get(post.community_id)
 
         post_dict = post.to_dict()
         post_dict['User'] = {
@@ -66,6 +71,7 @@ def user_posts():
         }
         if image_url is not None:
             post_dict['PostImage'] = image_url
+        post_dict["Community"] = community.name
 
         result.append(post_dict)
 
@@ -82,6 +88,7 @@ def saved_posts():
         user = User.query.get(post.user_id)
         post_image = PostImage.query.filter_by(post_id=post.id).first()
         image_url = post_image.image_url if post_image else None
+        community = Community.query.get(post.community_id)
 
         post_dict = post.to_dict()
         post_dict['User'] = {
@@ -90,6 +97,7 @@ def saved_posts():
         }
         if image_url is not None:
             post_dict['PostImage'] = image_url
+        post_dict["Community"] = community.name
 
         result.append(post_dict)
     return jsonify({"Posts": result})
