@@ -31,6 +31,7 @@ class Post(db.Model):
             'likes': self.likes,
             'created_at': self.created_at,
             'updated_at': self.updated_at,
+            'community_id': self.community_id,
             'tags': [tag.to_dict() for tag in self.tags],
             'image': self.image.to_dict() if self.image else None
         }
