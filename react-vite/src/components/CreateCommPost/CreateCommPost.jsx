@@ -47,11 +47,17 @@ function CreateCommPost() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const newPost = await dispatch(createPost(formData));
+    const postData = {
+      ...formData,
+      community_id: communityId,
+    };
+
+    const newPost = await dispatch(createPost(postData));
     if (newPost.id) {
       setFormData({
         title: "",
         content: "",
+        community_id: communityId,
       });
 
       if (imgUrl) {

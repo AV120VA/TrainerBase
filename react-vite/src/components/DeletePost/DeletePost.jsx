@@ -1,17 +1,28 @@
-import { deletePost, getPosts, getUserPosts } from "../../redux/post";
+import {
+  deletePost,
+  getPosts,
+  getUserPosts,
+  getCommunityPosts,
+} from "../../redux/post";
 import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import "./DeletePost.css";
 
 function DeletePost({ postId }) {
   const dispatch = useDispatch();
   const { setModalContent } = useModal();
+  const { communityId } = useParams();
 
   const dispatchDelete = async () => {
     try {
       await dispatch(deletePost(postId));
-      await dispatch(getPosts());
-      await dispatch(getUserPosts());
+      if (communityId) {
+        await dispatch(getCommunityPosts(communityId));
+      } else {
+        await dispatch(getPosts());
+        await dispatch(getUserPosts());
+      }
       setModalContent(null);
     } catch (e) {
       console.error("Error deleting post:", e);
