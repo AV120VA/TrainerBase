@@ -1,16 +1,26 @@
-import { deleteCommunity, getCommunities } from "../../redux/community";
+import {
+  deleteCommunity,
+  getCommunities,
+  getUserCommunities,
+} from "../../redux/community";
 import { useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import "./DeleteCommunity.css";
 
 function DeleteCommunity({ communityId }) {
   const dispatch = useDispatch();
+  const location = useLocation();
   const { setModalContent } = useModal();
 
   const dispatchDelete = async () => {
     try {
       await dispatch(deleteCommunity(communityId));
-      await dispatch(getCommunities());
+      if (location.pathname.endsWith("/my-communities")) {
+        await dispatch(getUserCommunities());
+      } else {
+        await dispatch(getCommunities());
+      }
       setModalContent(null);
     } catch (e) {
       console.error("Error deleting community:", e);
