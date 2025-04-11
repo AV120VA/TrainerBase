@@ -68,6 +68,13 @@
   color: white;
   font-weight: 200;
   font-size: 22px;
+  background: linear-gradient(90deg, #f41624, white);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  width: fit-content;
+  position: relative;
 }
 
 .community-description {

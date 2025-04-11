@@ -52,6 +52,7 @@
   width: 85px;
   border-radius: 20px;
   font-size: 19px;
+  cursor: pointer;
 }
 
 .convo-started {

@@ -109,6 +109,12 @@ function Post({ post }) {
     <>
       {isLoaded && (
         <div className="post-container">
+          <p
+            onClick={() => navigate(`/communities/${post.community_id}`)}
+            className="post-community-tag gradient-text"
+          >
+            {"p/" + post.Community}
+          </p>
           <div className="post-header-box">
             <div
               onClick={() => {

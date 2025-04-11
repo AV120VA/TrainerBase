@@ -171,3 +171,36 @@
   color: #ff6174;
   font-size: 22px;
 }
+
+.gradient-text {
+  background: linear-gradient(90deg, #f41624, white);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  width: fit-content;
+  position: relative;
+  padding: 4px 8px;
+}
+
+.post-community-tag {
+  font-size: 16px;
+  font-weight: 200;
+  position: relative;
+  padding: 5px 15px 5px 15px;
+  cursor: pointer;
+}
+
+.post-community-tag::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  background: linear-gradient(90deg, #f41624, white);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  border-radius: 10px;
+}
