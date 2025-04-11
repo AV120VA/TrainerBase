@@ -5,6 +5,7 @@ import "./CommunityPage.css";
 import { getCommunityById } from "../../redux/community";
 import { getCommunityPosts } from "../../redux/post";
 import Post from "../Post/Post";
+import CreateCommPost from "../CreateCommPost";
 
 function CommunityPage() {
   const dispatch = useDispatch();
@@ -13,6 +14,7 @@ function CommunityPage() {
   const [posts, setPosts] = useState([]);
   const community = useSelector((state) => state.communities.communityById);
   const { communityPosts } = useSelector((state) => state.posts);
+  const { user } = useSelector((state) => state.session);
 
   useEffect(() => {
     dispatch(getCommunityById(communityId));
@@ -57,6 +59,7 @@ function CommunityPage() {
                 {community.description}
               </p>
             </div>
+            {user ? <CreateCommPost /> : null}
           </div>
           {posts.map((post) => (
             <Post key={post.id} post={post} />
