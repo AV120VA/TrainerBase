@@ -2,52 +2,189 @@
 
 Live Link: https://trainerbase.onrender.com/
 
-## Getting started
+## Overview
 
-1. Clone this repository (only this branch).
+TrainerBase is a community-focused social platform inspired by Reddit, designed specifically for Pokémon trainers. It allows users to create and join communities, share posts, comment, and save content related to different aspects of Pokémon gaming.
 
-2. Install dependencies.
+## Getting Started
 
-   ```bash
+### Installation & Setup
+
+1. **Clone the repository:**
+
+   ```sh
+   git clone https://github.com/your-repo/trainerbase.git
+   ```
+
+2. **Install backend dependencies:**
+
+   ```sh
    pipenv install -r requirements.txt
    ```
 
-3. Create a __.env__ file based on the example with proper settings for your
-   development environment.
+3. **Set up the database:**
 
-4. Make sure the SQLite3 database connection URL is in the __.env__ file.
-
-5. This starter organizes all tables inside the `flask_schema` schema, defined
-   by the `SCHEMA` environment variable.  Replace the value for
-   `SCHEMA` with a unique name, **making sure you use the snake_case
-   convention.**
-
-6. Get into your pipenv, migrate your database, seed your database, and run your
-   Flask app:
-
-   ```bash
+   ```sh
    pipenv shell
-   ```
-
-   ```bash
    flask db upgrade
-   ```
-
-   ```bash
    flask seed all
    ```
 
-   ```bash
+4. **Install frontend dependencies:**
+
+   ```sh
+   cd react-vite
+   npm install
+   ```
+
+5. **Start the backend server:**
+
+   ```sh
    flask run
    ```
 
-7. To run the React frontend in development, `cd` into the __react-vite__
-   directory and run `npm i` to install dependencies. Next, run `npm run build`
-   to create the `dist` folder. The starter has modified the `npm run build`
-   command to include the `--watch` flag. This flag will rebuild the __dist__
-   folder whenever you change your code, keeping the production version up to
-   date.
+6. **Start the frontend server:**
+   ```sh
+   npm run dev
+   ```
 
-[Render.com]: https://render.com/
-[Dashboard]: https://dashboard.render.com/
-# TrainerBase
+## Features
+
+- User authentication (sign-up, login, logout, demo user)
+- Create and join Pokémon-focused communities
+- Create, edit, and delete posts within communities
+- Comment on posts with full CRUD functionality
+- Save posts for later viewing
+- Image support for posts
+- Community search functionality
+
+## Database Schema
+
+### Users Table
+
+| Column          | Type         |
+| --------------- | ------------ |
+| id              | integer (PK) |
+| username        | varchar(40)  |
+| email           | varchar(255) |
+| hashed_password | string       |
+| created_at      | timestamp    |
+| updated_at      | timestamp    |
+
+### Communities Table
+
+| Column      | Type                  |
+| ----------- | --------------------- |
+| id          | integer (PK)          |
+| name        | varchar(50)           |
+| description | text                  |
+| user_id     | integer (FK -> Users) |
+| created_at  | timestamp             |
+| updated_at  | timestamp             |
+
+### Posts Table
+
+| Column       | Type                        |
+| ------------ | --------------------------- |
+| id           | integer (PK)                |
+| title        | varchar(50)                 |
+| content      | text                        |
+| user_id      | integer (FK -> Users)       |
+| community_id | integer (FK -> Communities) |
+| likes        | integer                     |
+| created_at   | timestamp                   |
+| updated_at   | timestamp                   |
+
+### Comments Table
+
+| Column     | Type                  |
+| ---------- | --------------------- |
+| id         | integer (PK)          |
+| content    | text                  |
+| user_id    | integer (FK -> Users) |
+| post_id    | integer (FK -> Posts) |
+| created_at | timestamp             |
+| updated_at | timestamp             |
+
+### SaveForLaters Table
+
+| Column     | Type                  |
+| ---------- | --------------------- |
+| id         | integer (PK)          |
+| user_id    | integer (FK -> Users) |
+| post_id    | integer (FK -> Posts) |
+| created_at | timestamp             |
+| updated_at | timestamp             |
+
+## API Routes
+
+### Communities
+
+- **GET** `/api/communities/` - Get all communities
+- **GET** `/api/communities/<int:id>` - Get specific community
+- **POST** `/api/communities/` - Create new community
+- **DELETE** `/api/communities/<int:id>` - Delete community
+
+### Posts
+
+- **GET** `/api/posts` - Get all posts
+- **GET** `/api/communities/<int:id>/posts` - Get all posts in community
+- **POST** `/api/posts/` - Create new post
+- **PUT** `/api/posts/<int:id>` - Update post
+- **DELETE** `/api/posts/<int:id>` - Delete post
+
+### Comments
+
+- **GET** `/api/posts/<int:id>/comments` - Get post comments
+- **POST** `/api/comments/` - Create comment
+- **PUT** `/api/comments/<int:id>` - Update comment
+- **DELETE** `/api/comments/<int:id>` - Delete comment
+
+### Save Posts
+
+- **POST** `/api/posts/<int:id>/save` - Save post
+- **DELETE** `/api/posts/<int:id>/unsave` - Unsave post
+- **GET** `/api/posts/saved` - Get saved posts
+
+## User Stories
+
+### Authentication
+
+- Users can sign up, log in, and log out
+- Users can log in as a demo user
+
+### Communities
+
+- Users can create and join communities
+- Users can view all available communities
+- Community creators can delete their communities
+
+### Posts
+
+- Users can create posts within communities
+- Users can edit and delete their own posts
+- Users can save posts for later viewing
+
+### Comments
+
+- Users can comment on posts
+- Users can edit and delete their own comments
+- Comments are displayed in chronological order
+
+## Technologies Used
+
+- **Frontend:** React, React Router, Redux, Vite
+- **Backend:** Flask, SQLAlchemy, PostgreSQL
+- **Authentication:** Flask-Login
+- **Image Handling:** Direct URL storage - AWS coming soon
+- **Deployment:** Render
+
+## Future Enhancements
+
+- Implement post likes/dislikes functionality
+- Add AWS image upload capability
+- Enable user profile customization
+- Add direct messaging between users
+- Implement post tags and filtering
+- Add moderation tools for community owners
+
